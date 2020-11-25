@@ -19,16 +19,12 @@ router.get(
 );
 
 router.get('/google/callback', passport.authenticate('google'), (req, res) => {
-    authController.sendTokenResponse(200,req.user,res)   
+  authController.sendTokenResponse(200, req.user, res);
 });
 router.get('/logout', authController.logout);
-// router.post('/forgotPassword', authController.forgotPassword);
-// router.put('/resetPassword/:token', authController.resetPassword);
-
 // // All routes from this middlewares are available to logged in users only
 // router.use(protect);
 
-// router.post('/updatePassword', authController.updatePassword);
 // router.get('/me', userController.getMe);
 // router.put(
 //   '/updateMe',
