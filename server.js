@@ -41,6 +41,7 @@ connectDB();
 app.use(express.static(`${__dirname}/starter/public`));
 
 // 3) ROUTES
+app.use('/api/v1/users', require('./server/routes/userRoutes'))
 
 app.all('*', (req, res, next) => {
   next(new ErrorResponse(` Can't find ${req.originalUrl} on this server`, 404));
