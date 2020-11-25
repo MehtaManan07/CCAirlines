@@ -7,9 +7,10 @@ const rateLimit = require('express-rate-limit');
 const ErrorResponse = require('./server/middlewares/ErrorResponse');
 const cookieSession = require('cookie-session')
 const passport = require('passport');
+dotenv.config({ path: './server/config/config.env' });
 
 const app = express();
-dotenv.config({ path: './server/config/config.env' });
+require('./server/middlewares/passport')
 
 const connectDB = require('./server/config/db'); // load database
 const errorHandler = require('./server/middlewares/errorHandler');

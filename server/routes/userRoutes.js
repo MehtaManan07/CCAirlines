@@ -4,14 +4,27 @@ const authController = require('./../controllers/authControllers');
 // const { protect, authorize } = require('../middlewares/auth');
 
 const router = express.Router();
+const passport = require('passport');
 
 // there are 13 routes here
 
 router.post('/signup', authController.signup);
+// auth login
 router.post('/login', authController.login);
+
+// auth with google+
+router.get(
+  '/google',
+  passport.authenticate('google', { scope: ['profile', 'email'] })
+);
+
+router.get('/google/callback', passport.authenticate('google'), (req, res) => {
+    authController.sendTokenResponse(200,req.user,res)   
+});
+router.get('/logout', authController.logout);
+
 // router.post('/forgotPassword', authController.forgotPassword);
 // router.put('/resetPassword/:token', authController.resetPassword);
-// router.get('/logout', authController.logout);
 
 // // All routes from this middlewares are available to logged in users only
 // router.use(protect);

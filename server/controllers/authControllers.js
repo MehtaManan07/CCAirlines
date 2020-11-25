@@ -1,7 +1,6 @@
 const User = require('../models/UserModel');
 const ErrorResponse = require('../middlewares/ErrorResponse');
 const asyncHandler = require('../middlewares/async');
-const crypto = require('crypto');
 
 exports.signup = asyncHandler(async (req, res, next) => {
   const { name, email, password } = req.body;
@@ -35,8 +34,7 @@ exports.login = asyncHandler(async (req, res, next) => {
     sendTokenResponse(200, user, res);
   });
 
-
-const sendTokenResponse = (statusCode, user, res) => {
+exports.sendTokenResponse = (statusCode, user, res) => {
   const token = user.getSignedJwtToken();
   const cookieOptions = {
     expires: new Date(
