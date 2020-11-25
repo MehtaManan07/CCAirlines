@@ -1,7 +1,7 @@
 const express = require('express');
 // const userController = require('./../controllers/userController');
 const authController = require('./../controllers/authControllers');
-// const { protect, authorize } = require('../middlewares/auth');
+const { protect, authorize } = require('../middlewares/auth');
 
 const router = express.Router();
 const passport = require('passport');
@@ -22,7 +22,6 @@ router.get('/google/callback', passport.authenticate('google'), (req, res) => {
     authController.sendTokenResponse(200,req.user,res)   
 });
 router.get('/logout', authController.logout);
-
 // router.post('/forgotPassword', authController.forgotPassword);
 // router.put('/resetPassword/:token', authController.resetPassword);
 
