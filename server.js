@@ -5,6 +5,8 @@ const colors = require('colors');
 const cookieParser = require('cookie-parser');
 const rateLimit = require('express-rate-limit');
 const ErrorResponse = require('./server/middlewares/ErrorResponse');
+const cookieSession = require('cookie-session')
+const passport = require('passport');
 
 const app = express();
 dotenv.config({ path: './server/config/config.env' });
@@ -25,7 +27,16 @@ const limiter = rateLimit({
 
 app.use('/api', limiter);
 app.use(express.json());
-app.use(cookieParser());
+app.use(
+  cookieSession({
+    maxAge: 2 * 24 * 60 * 60 * 1000, // make sure it is same in jwt
+    keys: [process.env.APP_COOKIE]
+  })
+);
+
+app.use(passport.initialize())
+app.use(passport.session())
+app.use(cookieParser())
 connectDB();
 app.use(express.static(`${__dirname}/starter/public`));
 
