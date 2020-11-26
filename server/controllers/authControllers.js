@@ -34,7 +34,7 @@ exports.login = asyncHandler(async (req, res, next) => {
     sendTokenResponse(200, user, res);
   });
 
-exports.sendTokenResponse = (statusCode, user, res) => {
+const sendTokenResponse = exports.sendTokenResponse = (statusCode, user, res) => {
   const token = user.getSignedJwtToken();
   const cookieOptions = {
     expires: new Date(

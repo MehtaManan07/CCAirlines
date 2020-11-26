@@ -1,0 +1,112 @@
+[
+    {
+        "_id": "5fbfee9766b98d23c0d38ca1",
+        "name": "Mumbai",
+        "location": {
+            "type": "Point",
+            "coordinates": [
+                18.975,
+                72.825833
+            ]
+        }
+    },
+    {
+        "_id": "5fbfee9766b98d23c0d38ca2",
+        "name": "Delhi",
+        "location": {
+            "type": "Point",
+            "coordinates": [
+                28.666667,
+                77.216667
+            ]
+        }
+    },
+    {
+        "_id": "5fbfee9766b98d23c0d38ca4",
+        "name": "Bangalore",
+        "location": {
+            "type": "Point",
+            "coordinates": [
+                12.983333,
+                77.583333
+            ]
+        }
+    },
+    {
+        "_id": "5fbfee9766b98d23c0d38ca5",
+        "name": "Hyderabad",
+        "location": {
+            "type": "Point",
+            "coordinates": [
+                17.375278,
+                78.474444
+            ]
+        }
+    },
+    {
+        "_id": "5fbfee9766b98d23c0d38ca3",
+        "name": "Ahmedabad",
+        "location": {
+            "type": "Point",
+            "coordinates": [
+                23.033333,
+                72.616667
+            ]
+        }
+    },
+    {
+        "_id": "5fbfee9766b98d23c0d38ca6",
+        "name": "Chennai",
+        "location": {
+            "type": "Point",
+            "coordinates": [
+                13.083333,
+                80.283333
+            ]
+        }
+    },
+    {
+        "_id": "5fbfee9766b98d23c0d38ca7",
+        "name": "Kolkata",
+        "location": {
+            "type": "Point",
+            "coordinates": [
+                22.569722,
+                88.369722
+            ]
+        }
+    },
+    {
+        "_id": "5fbfee9766b98d23c0d38ca8",
+        "name": "Surat",
+        "location": {
+            "type": "Point",
+            "coordinates": [
+                20.966667,
+                72.9
+            ]
+        }
+    },
+    {
+        "_id": "5fbfee9766b98d23c0d38ca9",
+        "name": "Pune",
+        "location": {
+            "type": "Point",
+            "coordinates": [
+                18.533333,
+                73.866667
+            ]
+        }
+    },
+    {
+        "_id": "5fbfee9766b98d23c0d38caa",
+        "name": "Jaipur",
+        "location": {
+            "type": "Point",
+            "coordinates": [
+                24.583333,
+                86.85
+            ]
+        }
+    }
+]
