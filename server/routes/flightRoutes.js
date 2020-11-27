@@ -9,7 +9,7 @@ const Seat = require('../models/SeatModel');
 router
   .route('/')
   .post(protect, authorize('superuser'), flightController.createFlight)
-  .get(advancedResults(Flight,'seats'), flightController.getAllFlights);
+  .get(advancedResults(Flight), flightController.getAllFlights);
 
   router.get('/seats', async(req,res) => {
     const seats = await Seat.find({}).populate('flight')

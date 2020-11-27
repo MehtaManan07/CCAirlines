@@ -24,15 +24,19 @@ const cities = JSON.parse(
 const users = JSON.parse(
   fs.readFileSync(`${__dirname}/users.json`, "utf-8")
 );
-const seats = JSON.parse(
-  fs.readFileSync(`${__dirname}/seats.json`, "utf-8")
+const flights = JSON.parse(
+  fs.readFileSync(`${__dirname}/flights.json`, "utf-8")
 );
 // import to db
 const importData = async () => {
   try {
+    let a = Date.now();
     await Airport.create(cities);
     await User.create(users);
+    // await Flight.create(flights);
     console.log("Data imported".bgGreen);
+    let b = Date.now()
+    console.log(b-a)
     process.exit(0)
   } catch (error) {
     console.error("Error:\n", error);

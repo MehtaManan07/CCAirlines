@@ -71,7 +71,7 @@ flightSchema.pre('save', function (next) {
 flightSchema.pre(/^find/, function (next) {
   this.populate('crewStaff', 'name role')
     .populate('from', 'name')
-    .populate('to', 'name');
+    .populate('to', 'name')
   next();
 });
 

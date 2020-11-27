@@ -59,12 +59,11 @@ exports.createFlight = asyncHandler(async (req, res, next) => {
   const seatsToEnter = entries
     .map((entry) => convert(entry, newFlight._id))
     .reduce((a, b) => a.concat(b));
-  console.log(seatsToEnter);
   const seatsAdded = await Seat.insertMany(seatsToEnter);
-  if(!seatsAdded){
-    return next(new ErrorResponse(`Server Error`,500))
+  if (!seatsAdded) {
+    return next(new ErrorResponse(`Server Error`, 500));
   }
-  newFlight.totalSeats = seatsAdded.length
+  newFlight.totalSeats = seatsAdded.length;
   res.status(201).json({
     success: true,
     data: newFlight,

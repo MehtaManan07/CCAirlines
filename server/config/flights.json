@@ -1,0 +1,344 @@
+[
+  {
+    "name": "FlightOne",
+    "from": "5fbfee9766b98d23c0d38ca1",
+    "to": "5fbfee9766b98d23c0d38caa",
+    "crewStaff": [
+      "5c8a1f292f8fb814b56fa184",
+      "5c8a1f4e2f8fb814b56fa185",
+      "5c8a201e2f8fb814b56fa186"
+    ],
+    "departureDate": "2020-12-9",
+    "features": [
+      "drinks",
+      "magazines",
+      "breakfast"
+    ],
+    "departureTime": "00:00",
+    "arrivalTime": "1:30",
+    "seatsToAdd": {
+      "Economy": "35",
+      "Business": "20",
+      "FirstClass": "5"
+    }
+  },
+  {
+    "name": "FlightTwo",
+    "from": "5fbfee9766b98d23c0d38ca1",
+    "to": "5fbfee9766b98d23c0d38caa",
+    "crewStaff": [
+      "5c8a1f292f8fb814b56fa184",
+      "5c8a1f4e2f8fb814b56fa185",
+      "5c8a201e2f8fb814b56fa186"
+    ],
+    "departureDate": "2020-12-9",
+    "features": [
+      "magazines",
+      "breakfast"
+    ],
+    "departureTime": "10:00",
+    "arrivalTime": "11:30",
+    "seatsToAdd": {
+      "Economy": "35",
+      "Business": "20",
+      "FirstClass": "5"
+    }
+  },
+  {
+    "name": "FlightThree",
+    "from": "5fbfee9766b98d23c0d38ca2",
+    "to": "5fbfee9766b98d23c0d38ca9",
+    "crewStaff": [
+      "5c8a1f292f8fb814b56fa184",
+      "5c8a1f4e2f8fb814b56fa185",
+      "5c8a201e2f8fb814b56fa186"
+    ],
+    "departureDate": "2020-12-13",
+    "features": [
+      "drinks",
+      "magazines",
+      "breakfast"
+    ],
+    "departureTime": "5:00",
+    "arrivalTime": "10:30",
+    "seatsToAdd": {
+      "Economy": "30",
+      "Business": "20",
+      "FirstClass": "5"
+    }
+  },
+  {
+    "name": "FlightFour",
+    "from": "5fbfee9766b98d23c0d38ca3",
+    "to": "5fbfee9766b98d23c0d38ca8",
+    "crewStaff": [
+      "5c8a1f292f8fb814b56fa184",
+      "5c8a1f4e2f8fb814b56fa185",
+      "5c8a201e2f8fb814b56fa186"
+    ],
+    "departureDate": "2020-12-11",
+    "features": [
+      "drinks",
+      "magazines",
+      "breakfast"
+    ],
+    "departureTime": "10:00",
+    "arrivalTime": "12:30",
+    "seatsToAdd": {
+      "Economy": "35",
+      "Business": "20",
+      "FirstClass": "5"
+    }
+  },
+  {
+    "name": "FlightFive",
+    "from": "5fbfee9766b98d23c0d38ca4",
+    "to": "5fbfee9766b98d23c0d38ca7",
+    "crewStaff": [
+      "5c8a1f292f8fb814b56fa184",
+      "5c8a1f4e2f8fb814b56fa185",
+      "5c8a201e2f8fb814b56fa186"
+    ],
+    "departureDate": "2020-12-15",
+    "features": [
+      "drinks",
+      "magazines",
+      "breakfast"
+    ],
+    "departureTime": "00:00",
+    "arrivalTime": "1:30",
+    "seatsToAdd": {
+      "Economy": "35",
+      "Business": "20",
+      "FirstClass": "5"
+    }
+  },
+  {
+    "name": "FlightSix",
+    "from": "5fbfee9766b98d23c0d38ca5",
+    "to": "5fbfee9766b98d23c0d38ca6",
+    "crewStaff": [
+      "5c8a1f292f8fb814b56fa184",
+      "5c8a1f4e2f8fb814b56fa185",
+      "5c8a201e2f8fb814b56fa186"
+    ],
+    "departureDate": "2020-12-13",
+    "features": [
+      "drinks",
+      "magazines",
+      "breakfast"
+    ],
+    "departureTime": "10:00",
+    "arrivalTime": "13:30",
+    "seatsToAdd": {
+      "Economy": "35",
+      "Business": "25",
+      "FirstClass": "0"
+    }
+  },
+  {
+    "name": "FlightSeven",
+    "from": "5fbfee9766b98d23c0d38ca1",
+    "to": "5fbfee9766b98d23c0d38ca7",
+    "crewStaff": [
+      "5c8a1f292f8fb814b56fa184",
+      "5c8a1f4e2f8fb814b56fa185",
+      "5c8a201e2f8fb814b56fa186"
+    ],
+    "departureDate": "2020-12-17",
+    "features": [
+      "drinks",
+      "breakfast"
+    ],
+    "departureTime": "18:00",
+    "arrivalTime": "21:30",
+    "seatsToAdd": {
+      "Economy": "35",
+      "Business": "20",
+      "FirstClass": "5"
+    }
+  },
+  {
+    "name": "FlightEight",
+    "from": "5fbfee9766b98d23c0d38ca5",
+    "to": "5fbfee9766b98d23c0d38ca1",
+    "crewStaff": [
+      "5c8a1f292f8fb814b56fa184",
+      "5c8a1f4e2f8fb814b56fa185",
+      "5c8a201e2f8fb814b56fa186"
+    ],
+    "departureDate": "2020-12-21",
+    "features": [
+      "magazines",
+      "breakfast"
+    ],
+    "departureTime": "00:00",
+    "arrivalTime": "1:30",
+    "seatsToAdd": {
+      "Economy": "35",
+      "Business": "20",
+      "FirstClass": "5"
+    }
+  },
+  {
+    "name": "FlightNine",
+    "from": "5fbfee9766b98d23c0d38ca8",
+    "to": "5fbfee9766b98d23c0d38ca1",
+    "crewStaff": [
+      "5c8a1f292f8fb814b56fa184",
+      "5c8a1f4e2f8fb814b56fa185",
+      "5c8a201e2f8fb814b56fa186"
+    ],
+    "departureDate": "2020-12-9",
+    "features": [
+      "drinks",
+      "magazines",
+      "breakfast"
+    ],
+    "departureTime": "00:00",
+    "arrivalTime": "1:30",
+    "seatsToAdd": {
+      "Economy": "35",
+      "Business": "20",
+      "FirstClass": "5"
+    }
+  },
+  {
+    "name": "FlightTen",
+    "from": "5fbfee9766b98d23c0d38ca3",
+    "to": "5fbfee9766b98d23c0d38caa",
+    "crewStaff": [
+      "5c8a1f292f8fb814b56fa184",
+      "5c8a1f4e2f8fb814b56fa185",
+      "5c8a201e2f8fb814b56fa186"
+    ],
+    "departureDate": "2020-12-9",
+    "features": [
+      "drinks",
+      "magazines",
+      "breakfast"
+    ],
+    "departureTime": "00:00",
+    "arrivalTime": "1:30",
+    "seatsToAdd": {
+      "Economy": "35",
+      "Business": "20",
+      "FirstClass": "5"
+    }
+  },
+  {
+    "name": "FlightThree",
+    "from": "5fbfee9766b98d23c0d38ca6",
+    "to": "5fbfee9766b98d23c0d38ca5",
+    "crewStaff": [
+      "5c8a1f292f8fb814b56fa184",
+      "5c8a1f4e2f8fb814b56fa185",
+      "5c8a201e2f8fb814b56fa186"
+    ],
+    "departureDate": "2020-12-20",
+    "features": [
+      "drinks",
+      "magazines",
+      "breakfast"
+    ],
+    "departureTime": "00:00",
+    "arrivalTime": "1:30",
+    "seatsToAdd": {
+      "Economy": "35",
+      "Business": "20",
+      "FirstClass": "5"
+    }
+  },
+  {
+    "name": "FlightTwelve",
+    "from": "5fbfee9766b98d23c0d38ca7",
+    "to": "5fbfee9766b98d23c0d38ca6",
+    "crewStaff": [
+      "5c8a1f292f8fb814b56fa184",
+      "5c8a1f4e2f8fb814b56fa185",
+      "5c8a201e2f8fb814b56fa186"
+    ],
+    "departureDate": "2020-12-9",
+    "features": [
+      "drinks",
+      "magazines",
+      "breakfast"
+    ],
+    "departureTime": "5:00",
+    "arrivalTime": "6:30",
+    "seatsToAdd": {
+      "Economy": "35",
+      "Business": "20",
+      "FirstClass": "5"
+    }
+  },
+    {
+      "name": "FlightThirteen",
+      "from": "5fbfee9766b98d23c0d38ca8",
+      "to": "5fbfee9766b98d23c0d38ca7",
+      "crewStaff": [
+        "5c8a1f292f8fb814b56fa184",
+        "5c8a1f4e2f8fb814b56fa185",
+        "5c8a201e2f8fb814b56fa186"
+      ],
+      "departureDate": "2020-12-9",
+      "features": [
+        "drinks",
+        "magazines",
+        "breakfast"
+      ],
+      "departureTime": "40:00",
+      "arrivalTime": "5:30",
+      "seatsToAdd": {
+        "Economy": "35",
+        "Business": "20",
+        "FirstClass": "5"
+      }
+    },
+  {
+    "name": "FlightFourteen",
+    "from": "5fbfee9766b98d23c0d38ca9",
+    "to": "5fbfee9766b98d23c0d38ca8",
+    "crewStaff": [
+      "5c8a1f292f8fb814b56fa184",
+      "5c8a1f4e2f8fb814b56fa185",
+      "5c8a201e2f8fb814b56fa186"
+    ],
+    "departureDate": "2020-12-9",
+    "features": [
+      "drinks",
+      "magazines",
+      "breakfast"
+    ],
+    "departureTime": "20:00",
+    "arrivalTime": "3:30",
+    "seatsToAdd": {
+      "Economy": "35",
+      "Business": "20",
+      "FirstClass": "5"
+    }
+  },
+  {
+    "name": "FlightFifteen",
+    "from": "5fbfee9766b98d23c0d38caa",
+    "to": "5fbfee9766b98d23c0d38ca89",
+    "crewStaff": [
+      "5c8a1f292f8fb814b56fa184",
+      "5c8a1f4e2f8fb814b56fa185",
+      "5c8a201e2f8fb814b56fa186"
+    ],
+    "departureDate": "2020-12-19",
+    "features": [
+      "drinks",
+      "magazines",
+      "breakfast"
+    ],
+    "departureTime": "00:00",
+    "arrivalTime": "1:30",
+    "seatsToAdd": {
+      "Economy": "35",
+      "Business": "20",
+      "FirstClass": "5"
+    }
+  }
+]
