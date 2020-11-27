@@ -11,10 +11,6 @@ router
   .post(protect, authorize('superuser'), flightController.createFlight)
   .get(advancedResults(Flight), flightController.getAllFlights);
 
-  router.get('/seats', async(req,res) => {
-    const seats = await Seat.find({}).populate('flight')
-    res.json(seats)
-  })
 router
   .route('/:id')
   .get(flightController.getFlight)

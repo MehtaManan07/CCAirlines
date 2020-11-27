@@ -5,13 +5,6 @@ const asyncHandler = require('../middlewares/async');
 const ErrorResponse = require('../middlewares/ErrorResponse');
 const factory = require('../middlewares/factoryFunctions');
 
-exports.aliasTopFlights = async (req, res, next) => {
-  req.query.limit = '5';
-  req.query.sort = '-ratingsAverage,price';
-  req.query.fields = 'basePrice,name';
-  next();
-};
-
 exports.getAllFlights = asyncHandler(async (req, res, next) => {
   res.status(200).json(res.advancedResults);
   console.log('yo boi');

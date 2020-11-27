@@ -44,7 +44,7 @@ const flightSchema = new mongoose.Schema(
       required: [true, 'A tour must have a price'],
       trim: true,
     },
-    totalSeats: Number,
+    // totalSeats: Number,
     slug: String,
   },
   {
@@ -55,10 +55,17 @@ const flightSchema = new mongoose.Schema(
 );
 
 // Virtual populate
-flightSchema.virtual('seats', {
+flightSchema.virtual('totalSeats', {
   ref: 'Seat',
   foreignField: 'flight',
   localField: '_id',
+  count: true
+});
+// Virtual populate
+flightSchema.virtual('seats', {
+  ref: 'Seat',
+  foreignField: 'flight',
+  localField: '_id'
 });
 
 // Document Middleware, runs before .save() and .create()
@@ -72,11 +79,7 @@ flightSchema.pre(/^find/, function (next) {
   this.populate('crewStaff', 'name role')
     .populate('from', 'name')
     .populate('to', 'name')
-  next();
-});
-
-flightSchema.pre('save', function (next) {
-  this.seatsAvailable = this.numberOfSeats - this.bookedSeats;
+    .populate('totalSeats');
   next();
 });
 

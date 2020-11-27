@@ -15,6 +15,7 @@ const advancedResults = (model, populate) => async (req, res, next) => {
         }
       });
     });
+    console.log(reqQuery)
     // loop over removefields and delete them from reqQuery
     removeFields.forEach((param) => delete reqQuery[param]);
   
