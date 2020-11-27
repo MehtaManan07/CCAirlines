@@ -1,112 +1,122 @@
 [
     {
         "_id": "5fbfee9766b98d23c0d38ca1",
-        "name": "Mumbai",
+        "name": "Mumbai_Airport",
         "location": {
             "type": "Point",
             "coordinates": [
                 18.975,
                 72.825833
             ]
-        }
+        },
+        "city": "Mumbai"
     },
     {
         "_id": "5fbfee9766b98d23c0d38ca2",
-        "name": "Delhi",
+        "name": "Delhi_Airport",
         "location": {
             "type": "Point",
             "coordinates": [
                 28.666667,
                 77.216667
             ]
-        }
+        },
+        "city": "Delhi"
     },
     {
         "_id": "5fbfee9766b98d23c0d38ca4",
-        "name": "Bangalore",
+        "name": "Bangalore_Airport",
         "location": {
             "type": "Point",
             "coordinates": [
                 12.983333,
                 77.583333
             ]
-        }
+        },
+        "city": "Bangalore"
     },
     {
         "_id": "5fbfee9766b98d23c0d38ca5",
-        "name": "Hyderabad",
+        "name": "Hyderabad_Airport",
         "location": {
             "type": "Point",
             "coordinates": [
                 17.375278,
                 78.474444
             ]
-        }
+        },
+        "city": "Hyderabad"
     },
     {
         "_id": "5fbfee9766b98d23c0d38ca3",
-        "name": "Ahmedabad",
+        "name": "Ahmedabad_Airport",
         "location": {
             "type": "Point",
             "coordinates": [
                 23.033333,
                 72.616667
             ]
-        }
+        },
+        "city": "Ahmedabad"
     },
     {
         "_id": "5fbfee9766b98d23c0d38ca6",
-        "name": "Chennai",
+        "name": "Chennai_Airport",
         "location": {
             "type": "Point",
             "coordinates": [
                 13.083333,
                 80.283333
             ]
-        }
+        },
+        "city": "Chennai"
     },
     {
         "_id": "5fbfee9766b98d23c0d38ca7",
-        "name": "Kolkata",
+        "name": "Kolkata_Airport",
         "location": {
             "type": "Point",
             "coordinates": [
                 22.569722,
                 88.369722
             ]
-        }
+        },
+        "city": "Kolkata"
     },
     {
         "_id": "5fbfee9766b98d23c0d38ca8",
-        "name": "Surat",
+        "name": "Surat_Airport",
         "location": {
             "type": "Point",
             "coordinates": [
                 20.966667,
                 72.9
             ]
-        }
+        },
+        "city": "Surat"
     },
     {
         "_id": "5fbfee9766b98d23c0d38ca9",
-        "name": "Pune",
+        "name": "Pune_Airport",
         "location": {
             "type": "Point",
             "coordinates": [
                 18.533333,
                 73.866667
             ]
-        }
+        },
+        "city": "Pune"
     },
     {
         "_id": "5fbfee9766b98d23c0d38caa",
-        "name": "Jaipur",
+        "name": "Jaipur_Airport",
         "location": {
             "type": "Point",
             "coordinates": [
                 24.583333,
                 86.85
             ]
-        }
+        },
+        "city": "Jaipur"
     }
 ]

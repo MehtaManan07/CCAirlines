@@ -4,7 +4,7 @@ const errorHandler = (err, req, res, next) => {
   let error = { ...err };
   error.message = err.message;
   // Log to console...
-  console.log(err.message);
+  console.log(err.stack);
 
   // Mongoose bad object
   if (err.name === 'CastError') {
@@ -15,7 +15,8 @@ const errorHandler = (err, req, res, next) => {
   //Mongoose duplicate key
   if (err.code === 11000) {
     const value = err.errmsg.match(/(["'])(\\?.)*?\1/)[0];
-    const message = `${value} is already taken`;
+    console.log('\n' + value)
+    const message = `Duplicate is already taken`;
     error = new ErrorResponse(message, 400);
   }
 

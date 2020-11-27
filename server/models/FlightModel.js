@@ -1,53 +1,29 @@
 const mongoose = require('mongoose');
+const validator = require('validator');
 const slugify = require('slugify');
 const { ObjectId } = mongoose.Schema;
 
 const flightSchema = new mongoose.Schema(
   {
     name: {
-      // up
       type: String,
       required: [true, 'A tour must have a name'],
       unique: true,
       trim: true,
-      maxlength: [39, 'A tour name must have less than 40 characters'],
-      minlength: [4, 'A tour name must have more than 10 characters'],
-      // validate: [validator.isAlpha, "Tour name must only contain characters"],
+      validate: [validator.isAlpha, 'Tour name must only contain characters'],
     },
-    class: {
-      //yet to decide
+    from: { type: ObjectId, ref: 'Airport' },
+    to: { type: ObjectId, ref: 'Airport' },
+    features: [String],
+    departureTime: {
       type: String,
-      enum: ['economy', 'business', 'first-class'],
+      required: ['Please mention departure time of flight'],
     },
-    basePrice: {
-      // calc
-      type: Number,
-      required: [true, 'A tour must have a price'],
-      trim: true,
-    },
-    features: {
-      //up
-      type: [String],
-    },
-    seatsAvailable: {
-      // up || default
-      type: Number,
-      trim: true,
-      default: 320,
-      maxlength: 320,
-    },
-    bookedSeats: {
-      type: Number,
-      default: 0,
-    },
-    numberOfSeats: {
-      type: Number,
-      trim: true,
-      default: 320,
-      max: 320,
+    arrivalTime: {
+      type: String,
+      required: ['Please mention arrival time of flight'],
     },
     crewStaff: [
-      // up
       {
         type: mongoose.Schema.ObjectId,
         ref: 'User',
@@ -57,19 +33,19 @@ const flightSchema = new mongoose.Schema(
       //up
       type: Date, // format yet to decide
       trim: true,
-      required: [true, 'Flight requires departure times'],
+      required: [true, 'Flight requires departure date'],
     },
     isAvailable: {
       type: Boolean,
       default: true,
     },
-    from: { type: ObjectId, ref: 'City' }, // up
-    to: { type: ObjectId, ref: 'City' }, // up
-    slug: {
-      // code
-      type: String,
-      unique: true,
+    basePrice: {
+      type: Number,
+      required: [true, 'A tour must have a price'],
+      trim: true,
     },
+    totalSeats: Number,
+    slug: String,
   },
   {
     timestamps: true,
@@ -79,11 +55,11 @@ const flightSchema = new mongoose.Schema(
 );
 
 // Virtual populate
-// tourSchema.virtual('reviews', {
-//   ref: 'Review',
-//   foreignField: 'trip',
-//   localField: '_id',
-// });
+flightSchema.virtual('seats', {
+  ref: 'Seat',
+  foreignField: 'flight',
+  localField: '_id',
+});
 
 // Document Middleware, runs before .save() and .create()
 flightSchema.pre('save', function (next) {
@@ -93,9 +69,14 @@ flightSchema.pre('save', function (next) {
 });
 
 flightSchema.pre(/^find/, function (next) {
-  this.populate('crewStaff', '-photo')
+  this.populate('crewStaff', 'name role')
     .populate('from', 'name')
     .populate('to', 'name');
+  next();
+});
+
+flightSchema.pre('save', function (next) {
+  this.seatsAvailable = this.numberOfSeats - this.bookedSeats;
   next();
 });
 

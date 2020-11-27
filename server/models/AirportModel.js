@@ -1,10 +1,14 @@
 const mongoose = require('mongoose');
-const citySchema = new mongoose.Schema({
+const airportSchema = new mongoose.Schema({
   name: {
     type: String,
-    required: [true, 'A city must have a name'],
+    required: [true, 'An Airport must have a name'],
     unique: true,
     trim: true,
+  },
+  city: {
+    type: String,
+    required: [true, "Airport must belong to a city"]
   },
   location: {
     //geoJSON
@@ -20,8 +24,8 @@ const citySchema = new mongoose.Schema({
   },
 });
 
-const City = mongoose.model('City',citySchema)
-module.exports = City
+const Airport = mongoose.model('Airport',airportSchema)
+module.exports = Airport
 
 // name
 // arriving_flights

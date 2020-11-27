@@ -33,6 +33,14 @@ const userSchema = new mongoose.Schema({
     minlength: 6,
     select: false,
   },
+  bookings: [
+    {
+      type: mongoose.Schema.ObjectId,
+      ref: "Booking"
+    },
+  ],
+  phoneNum: Number,
+  address: String,
   passwordChangedAt: Date,
   resetPasswordToken: String,
   resetPasswordExpires: Date,

@@ -5,8 +5,10 @@ const dotenv = require("dotenv");
 
 dotenv.config({ path: "./config.env" });
 
-const City = require("../models/CityModel")
-const User = require("../models/UserModel")
+const Airport = require("../models/AirportModel")
+const User = require("../models/UserModel");
+const Flight = require("../models/FlightModel");
+const Seat = require("../models/SeatModel");
 
 mongoose.connect(process.env.MONGO_URI, {
   useNewUrlParser: true,
@@ -22,10 +24,13 @@ const cities = JSON.parse(
 const users = JSON.parse(
   fs.readFileSync(`${__dirname}/users.json`, "utf-8")
 );
+const seats = JSON.parse(
+  fs.readFileSync(`${__dirname}/seats.json`, "utf-8")
+);
 // import to db
 const importData = async () => {
   try {
-    await City.create(cities);
+    await Airport.create(cities);
     await User.create(users);
     console.log("Data imported".bgGreen);
     process.exit(0)
@@ -38,8 +43,10 @@ const importData = async () => {
 // delete from db
 const deleteData = async () => {
   try {
-    await City.deleteMany();
+    await Airport.deleteMany();
     await User.deleteMany();
+    await Seat.deleteMany();
+    await Flight.deleteMany();
     console.log("Data deleted".bgRed);
     process.exit(0)
   } catch (error) {

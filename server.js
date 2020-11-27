@@ -1,7 +1,7 @@
 const express = require('express');
 const morgan = require('morgan');
 const dotenv = require('dotenv');
-const colors = require('colors');
+require('colors');
 const cookieParser = require('cookie-parser');
 const rateLimit = require('express-rate-limit');
 const ErrorResponse = require('./server/middlewares/ErrorResponse');
@@ -44,6 +44,7 @@ app.use(express.static(`${__dirname}/starter/public`));
 // 3) ROUTES
 app.use('/api/v1/users', require('./server/routes/userRoutes'))
 app.use('/api/v1/flights', require('./server/routes/flightRoutes'))
+app.use('/api/v1/bookings', require('./server/routes/bookingRoutes'))
 
 app.all('*', (req, res, next) => {
   next(new ErrorResponse(` Can't find ${req.originalUrl} on this server`, 404));
