@@ -66,23 +66,23 @@ const advancedResults = (model, populate) => async (req, res, next) => {
     const results = await query;
   
     //pagination result;
-    const pagination = {};
-    if (endIndex < total) {
-      pagination.next = {
-        page: page + 1,
-        limit,
-      };
-    }
-    if (startIndex > 0) {
-      pagination.prev = {
-        page: page - 1,
-        limit,
-      };
-    }
+    // const pagination = {};
+    // if (endIndex < total) {
+    //   pagination.next = {
+    //     page: page + 1,
+    //     limit,
+    //   };
+    // }
+    // if (startIndex > 0) {
+    //   pagination.prev = {
+    //     page: page - 1,
+    //     limit,
+    //   };
+    // }
     res.advancedResults = {
       success: true,
       count: results.length,
-      pagination,
+      // pagination,
       data: results,
     };
   

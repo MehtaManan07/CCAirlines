@@ -82,3 +82,17 @@ const convert = (arr, flight) => {
 exports.updateFlight = factory.updateOne(Flight);
 
 exports.deleteFlight = factory.deleteOne(Flight);
+
+exports.getSeatsForFlight = asyncHandler(async (req,res,next) => {
+  const { id } = req.params
+  const seats = await Seat.find({ flight:id })
+  if(!seats){
+    return next(new Error(`No seats`,404))
+  }
+  res.json({ success: true, data: seats })
+})
+
+exports.getAllSeats = asyncHandler(async (req, res, next) => {
+  res.status(200).json(res.advancedResults);
+  console.log('yo boi');
+});

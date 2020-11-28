@@ -25,16 +25,23 @@ const flightSchema = new mongoose.Schema(
     },
     crewStaff: [
       {
-        type: mongoose.Schema.ObjectId,
+        type: ObjectId,
         ref: 'User',
       },
     ],
     departureDate: {
       //up
-      type: Date, // format yet to decide
+      type: String, // format is YYYY-MM-DD
       trim: true,
       required: [true, 'Flight requires departure date'],
     },
+    bookedSeats: [
+      {
+        type: ObjectId,
+        ref: 'Seat',
+        default: []
+      }
+    ],
     isAvailable: {
       type: Boolean,
       default: true,
@@ -59,21 +66,27 @@ flightSchema.virtual('totalSeats', {
   ref: 'Seat',
   foreignField: 'flight',
   localField: '_id',
-  count: true
+  count: true,
 });
 // Virtual populate
 flightSchema.virtual('seats', {
   ref: 'Seat',
   foreignField: 'flight',
-  localField: '_id'
+  localField: '_id',
 });
-
 // Document Middleware, runs before .save() and .create()
-flightSchema.pre('save', function (next) {
+flightSchema.pre('save', async function (next) {
   this.slug = slugify(this.name, { lower: true });
-  console.log(this.departureDate);
   next();
 });
+
+// delete seats when a flight is deleted
+flightSchema.pre("remove", async function (next) {
+  console.log(`Seats being removed from flight ${this.name}`.bgBlue);
+  await this.model("Seat").deleteMany({ flight: this._id });
+  next();
+});
+
 
 flightSchema.pre(/^find/, function (next) {
   this.populate('crewStaff', 'name role')

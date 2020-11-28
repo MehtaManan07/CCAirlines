@@ -17,30 +17,14 @@ const seatSchema = new mongoose.Schema({
     ref: 'Flight',
     required: true,
   },
-  avaible: {
+  available: {
     type: Boolean,
     default: true,
   },
-  priceMultiplier: Number,
-});
-
-seatSchema.pre('save', function (next) {
-  switch (this.type) {
-    case 'Economy':
-      k = 1;
-      break;
-    case 'Business':
-      k = 3;
-      break;
-    case 'FirstClass':
-      k = 5;
-      break;
-
-    default:
-      break;
-  }
-  this.priceMultiplier = k;
-  next();
+  boarded: {
+    type: Boolean,
+    default: false,
+  },
 });
 
 const Seat = mongoose.model('Seat', seatSchema);

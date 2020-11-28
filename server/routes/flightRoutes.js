@@ -10,7 +10,10 @@ router
   .route('/')
   .post(protect, authorize('superuser'), flightController.createFlight)
   .get(advancedResults(Flight), flightController.getAllFlights);
+  
+router.get('/seats/all', advancedResults(Seat), flightController.getAllSeats);
 
+router.get('/seat/:id', flightController.getSeatsForFlight);
 router
   .route('/:id')
   .get(flightController.getFlight)

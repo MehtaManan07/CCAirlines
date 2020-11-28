@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const { ObjectId } = mongoose.Schema;
 
 const passengerSchema = new mongoose.Schema({
   name: {
@@ -10,39 +11,36 @@ const passengerSchema = new mongoose.Schema({
     type: Number,
     required: [true, "Please specify passenger's age"],
   },
+  seat: {
+    type: ObjectId,
+    ref: 'Seat',
+  },
   gender: {
     type: String,
     enum: ['Male', 'Female', 'Other'],
   },
-  adult: Boolean,
-});
-
-passengerSchema.pre('save', function (next) {
-  this.age > 18 ? (this.adult = true) : (this.adult = false);
-  next();
+  adult: {
+    type: Boolean,
+  },
 });
 
 const Passenger = mongoose.model('Passenger', passengerSchema);
 
 const bookingSchema = new mongoose.Schema({
-  passengers: [passengerSchema],
-  class: {
-    type: String,
-    default: 'Economy',
-    enum: ['Economy', 'Business', 'FirstClass'],
-  },
+  passengers: [
+    {
+      type: ObjectId,
+      ref: 'Passenger',
+    },
+  ],
   flight: {
-    type: mongoose.Schema.ObjectId,
+    type: ObjectId,
     ref: 'Flight',
   },
   user: {
-    type: mongoose.Schema.ObjectId,
+    type: ObjectId,
     ref: 'User',
     required: [true, 'Booking must belong to a User!'],
-  },
-  createdAt: {
-    type: Date,
-    default: Date.now(),
   },
   paid: {
     type: Boolean,
@@ -52,13 +50,19 @@ const bookingSchema = new mongoose.Schema({
     type: Number,
     trim: true,
   },
-  numSeats: {
-    type: Number,
+  numSeats: Number,
+  createdAt: {
+    type: Date,
+    default: Date.now(),
   },
 });
 
 bookingSchema.pre('save', function (next) {
   this.numSeats = this.passengers.length;
+  this.populate('passengers').populate(
+    'flight',
+    'departureDate, name, arrivalTime '
+  );
   next();
 });
 
