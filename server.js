@@ -10,7 +10,7 @@ const passport = require('passport');
 dotenv.config({ path: './server/config/config.env' });
 
 const app = express();
-require('./server/middlewares/passport')
+require('./server/utils/passport')
 
 const connectDB = require('./server/config/db'); // load database
 const errorHandler = require('./server/middlewares/errorHandler');
