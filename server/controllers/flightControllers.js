@@ -3,7 +3,7 @@ const Airport = require('../models/AirportModel');
 const Seat = require('../models/SeatModel');
 const asyncHandler = require('../middlewares/async');
 const ErrorResponse = require('../middlewares/ErrorResponse');
-const factory = require('../middlewares/factoryFunctions');
+const factory = require('../utils/factoryFunctions');
 
 exports.getAllFlights = asyncHandler(async (req, res, next) => {
   res.status(200).json(res.advancedResults);

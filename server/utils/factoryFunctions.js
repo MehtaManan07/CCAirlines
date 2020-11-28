@@ -1,5 +1,5 @@
-const ErrorResponse = require('./ErrorResponse');
-const asyncHandler = require('./async');
+const ErrorResponse = require('../middlewares/ErrorResponse');
+const asyncHandler = require('../middlewares/async');
 
 exports.deleteOne = (Model) =>
   asyncHandler(async (req, res, next) => {

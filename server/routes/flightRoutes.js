@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const flightController = require('../controllers/flightControllers');
-const advancedResults = require('../middlewares/filterFeatures');
+const advancedResults = require('../utils/filterFeatures');
 const { protect, authorize } = require('../middlewares/auth');
 const Flight = require('../models/FlightModel');
 const Seat = require('../models/SeatModel');

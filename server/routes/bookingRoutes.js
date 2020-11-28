@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const bookingController = require('../controllers/bookingControllers');
-const advancedResults = require('../middlewares/filterFeatures');
+const advancedResults = require('../utils/filterFeatures');
 const { protect, authorize } = require('../middlewares/auth');
 const Booking = require('../models/BookingModel');
 
