@@ -1,0 +1,127 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Simple Responsive HTML Email Template</title>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300' rel='stylesheet' type='text/css'>
+    <style>
+        * {
+            box-sizing: border-box;
+            -moz-box-sizing: border-box;
+        }
+
+        html,
+        body {
+            background: #eeeeee;
+            font-family: 'Open Sans', sans-serif, Helvetica, Arial;
+        }
+
+        img {
+            max-width: 100%;
+        }
+
+        /* This is what it makes reponsive. Double check before you use it! */
+        @media only screen and (max-width: 480px) {
+            table tr td {
+                width: 100% !important;
+                float: left;
+            }
+        }
+    </style>
+</head>
+
+<body style="background: #eeeeee; padding: 10px; font-family: 'Open Sans', sans-serif, Helvetica, Arial;">
+
+    <center>
+        <!-- Let's Center it. just in case email client does not support margin: 0 auto -->
+
+
+        <!-- Set table width to fixed width for Outlook(Outlook does not support max-width) -->
+        <table width="100%" cellpadding="0" cellspacing="0" bgcolor="FFFFFF"
+            style="background: #ffffff; max-width: 600px !important; margin: 0 auto; background: #ffffff;">
+            <tr>
+                <td style="padding: 20px; text-align: center; background: #76ce3e;">
+                    <h1 style="color: #ffffff">CC AIRLINES</h1>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td style="padding: 20px; text-align: center;">
+                    <p style="font-size:30px; margin: 5px;">Booking Details</p>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam placerat, leo id facilisis
+                        facilisis, eget ultrices augue erat id tellus.</p>
+                    <p
+                        style="border-radius: 40px; -moz-border-radius: 40px; padding: 15px 20px; margin: 10px auto; background: #76ce3e; display: inline-block;">
+                        <a href="tel:8888888888" style="color: #fff; text-decoration: none;">Call Us (888) 888-8888</a>
+                    </p>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td>
+                    <img
+                        src="https://images.unsplash.com/reserve/iFW2JucQi2520x6vB5wW_IMG_1735_edited.jpg?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxzZWFyY2h8OXx8YWlybGluZXxlbnwwfHwwfA%3D%3D&auto=format&fit=crop&w=500&q=60" />
+                </td>
+            </tr>
+
+
+            <tr>
+                <td style="padding: 20px;">
+                    <table border="0" cellpadding="0">
+                        <tr>
+                            <td width="30%" style="width: 30%; padding: 10px;">
+                                <img
+                                    src="https://images.unsplash.com/photo-1521899922280-eed2230d7be8?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxzZWFyY2h8MTd8fGFpcmxpbmV8ZW58MHx8MHw%3D&auto=format&fit=crop&w=500&q=60" />
+                            </td>
+                            <td width="70%" style="width: 70%; padding: 10px; text-align: left;">
+                                <h3>Please find in attachment, your ticket</h3>
+                                <p>Etiam placerat, leo id facilisis facilisis, sem tortor efficitur velit, eget ultrices
+                                    augue erat id tellus.</p>
+                                <p style="color: #666666; font-size: 12px;">Small Font Sample</p>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td style="padding: 20px; background: #2B2E34;">
+
+                    <table border="0" cellpadding="0" cellspacing="0" a>
+                        <tr>
+                            <td width="50%" style="width: 50%; padding: 10px; color: #ffffff; text-align: left;"
+                                valign="top">
+                                <h2>About us</h2>
+                                <p style="font-size: 14px;">Nam porta tellus sit amet lacus efficitur iaculis.
+                                    Vestibulum massa orci, accumsan at mollis molestie, condimentum sed tortor. Duis
+                                    dolor risus, sagittis vitae orci sit amet, sodales tristique risus.</p>
+                            </td>
+                            <td width="50%" style="width: 50%; padding: 10px; color: #ffffff; text-align: left;"
+                                valign="top">
+                                <h2>Contact us</h2>
+                                <table border="0" style="font-size: 14px;">
+                                    <tr>
+                                        <td>Call: (888) 888-8888</td>
+                                    </tr>
+                                    <tr>
+                                        <td>email: sample@email.com</td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                    </table>
+
+                </td>
+            </tr>
+        </table>
+
+
+    </center>
+
+</body>
+
+</html>

@@ -16,7 +16,7 @@ const connectDB = require('./server/config/db'); // load database
 const errorHandler = require('./server/middlewares/errorHandler');
 
 // 1) Global MIDDLEWARES
-if (process.env.NODE_ENV === 'development') {
+if (process.env.NODE_ENV === 'production') {
   app.use(morgan('dev'));
 }
 

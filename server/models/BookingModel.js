@@ -1,5 +1,7 @@
 const mongoose = require('mongoose');
 const { ObjectId } = mongoose.Schema;
+const sendPdf = require('../utils/Pdf');
+const Email = require('../utils/Email');
 
 const passengerSchema = new mongoose.Schema({
   name: {
@@ -57,12 +59,21 @@ const bookingSchema = new mongoose.Schema({
   },
 });
 
+bookingSchema.pre(/^find/, function (next) {
+  this.populate('passengers').populate('user', 'name phoneNum email');
+  next();
+});
+
 bookingSchema.pre('save', function (next) {
   this.numSeats = this.passengers.length;
-  this.populate('passengers').populate(
-    'flight',
-    'departureDate, name, arrivalTime '
-  );
+  this.populate('passengers').populate('user', 'name phoneNum email');
+  next();
+});
+
+bookingSchema.post('save', async function (doc, next) {
+  await doc.populate('passengers').populate('user', 'name phoneNum email').execPopulate()
+  await sendPdf(doc);
+  await new Email(doc.user).sendBooking(doc._id);
   next();
 });
 

@@ -15,7 +15,6 @@ const advancedResults = (model, populate) => async (req, res, next) => {
         }
       });
     });
-    console.log(reqQuery)
     // loop over removefields and delete them from reqQuery
     removeFields.forEach((param) => delete reqQuery[param]);
   
@@ -34,10 +33,8 @@ const advancedResults = (model, populate) => async (req, res, next) => {
   
     // select fields;
     if (req.query.select) {
-      console.log('reached here')
       const fields = req.query.select.split(',').join(' ');
       query = query.select("title")
-      console.log("f: ",fields)
     }
   
     if (populate) {
@@ -46,7 +43,6 @@ const advancedResults = (model, populate) => async (req, res, next) => {
   
     // sort fields;
     if (req.query.sort) {
-      console.log("reached")
       const sortBy = req.query.sort.split(',').join(' ');
       query = query.sort(sortBy);
     } else {

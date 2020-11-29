@@ -7,7 +7,6 @@ const factory = require('../utils/factoryFunctions');
 
 exports.getAllFlights = asyncHandler(async (req, res, next) => {
   res.status(200).json(res.advancedResults);
-  console.log('yo boi');
 });
 
 exports.getFlight = asyncHandler(async (req, res, next) => {
@@ -94,5 +93,4 @@ exports.getSeatsForFlight = asyncHandler(async (req,res,next) => {
 
 exports.getAllSeats = asyncHandler(async (req, res, next) => {
   res.status(200).json(res.advancedResults);
-  console.log('yo boi');
 });

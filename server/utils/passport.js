@@ -31,10 +31,8 @@ passport.use(
           photo: profile._json.picture,
           password: crypto.randomBytes(8).toString('hex')
         });
-        console.log(profile)
         done(null,newUser)
       }
-      console.log(`aaiva pacha, heh`)
       done(null,user)
     }
   )

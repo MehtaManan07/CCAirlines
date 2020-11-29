@@ -9,43 +9,46 @@ exports.signup = asyncHandler(async (req, res, next) => {
     email,
     password,
   });
-  sendTokenResponse(201,newUser,res)
+  sendTokenResponse(201, newUser, res);
 });
 
 exports.login = asyncHandler(async (req, res, next) => {
-    const { email, password } = req.body;
-  
-    // validate password and email
-    if (!email || !password) {
-      return next(new ErrorResponse('Please add an email and a password', 400));
-    }
-  
-    // check for user
-    const user = await User.findOne({ email }).select('+password');
-    if (!user) {
-      return next(new ErrorResponse('Invalid credentials', 401));
-    }
-    // Check if password matches
-    const isMatch = await user.matchPassword(password);
-  
-    if (!isMatch || !user)
-      return next(new ErrorResponse('Invalid credentials', 401));
-  
-    sendTokenResponse(200, user, res);
-  });
+  const { email, password } = req.body;
 
-const sendTokenResponse = exports.sendTokenResponse = (statusCode, user, res) => {
+  // validate password and email
+  if (!email || !password) {
+    return next(new ErrorResponse('Please add an email and a password', 400));
+  }
+
+  // check for user
+  const user = await User.findOne({ email }).select('+password');
+  if (!user) {
+    return next(new ErrorResponse('Invalid credentials', 401));
+  }
+  // Check if password matches
+  const isMatch = await user.matchPassword(password);
+
+  if (!isMatch || !user)
+    return next(new ErrorResponse('Invalid credentials', 401));
+
+  sendTokenResponse(200, user, res);
+});
+
+const sendTokenResponse = (exports.sendTokenResponse = (
+  statusCode,
+  user,
+  res
+) => {
   const token = user.getSignedJwtToken();
   const cookieOptions = {
-    expires: new Date(
-      Date.now() + 2 * 24 * 60 * 60 * 1000
-    ),
+    expires: new Date(Date.now() + 2 * 24 * 60 * 60 * 1000),
     httpOnly: true,
   };
 
-  if (process.env.NODE_ENV === 'production') cookieOptions.secure = true;
-
+  // if (process.env.NODE_ENV === 'production') cookieOptions.secure = true;
+  console.log('123 =>\n', token);
   res.cookie('jwtCC', token, cookieOptions);
+  console.log('123456');
 
   user.password = undefined;
   res.status(statusCode).json({
@@ -53,10 +56,10 @@ const sendTokenResponse = exports.sendTokenResponse = (statusCode, user, res) =>
     token,
     data: user,
   });
-};
+});
 
 exports.logout = asyncHandler(async (req, res) => {
-    req.logout()
+  req.logout();
   res.clearCookie('jwtCC');
   res.status(200).json({ success: true });
 });

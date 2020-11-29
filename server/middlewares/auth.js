@@ -26,14 +26,6 @@ exports.protect = asyncHandler(async (req, res, next) => {
     // verify token
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
     const user = await User.findById(decoded.id);
-    if (user.changedPasswordAfter(decoded.iat)) {
-      return next(
-        new ErrorResponse(
-          `User recently changed password, please login again!!`,
-          401
-        )
-      );
-    }
     req.user = user;
     next();
   } catch (error) {

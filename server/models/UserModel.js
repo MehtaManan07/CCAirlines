@@ -36,10 +36,10 @@ const userSchema = new mongoose.Schema({
   bookings: [
     {
       type: mongoose.Schema.ObjectId,
-      ref: "Booking"
+      ref: 'Booking',
     },
   ],
-  phoneNum: Number,
+  phoneNum: { type: Number, default: 900990099009 },
   address: String,
   passwordChangedAt: Date,
   resetPasswordToken: String,
@@ -91,8 +91,6 @@ userSchema.methods.getresetToken = function (next) {
     .createHash('sha256')
     .update(resetToken)
     .digest('hex');
-
-  console.log({ resetToken, dbToken: this.resetPasswordToken });
 
   // set expire
   this.resetPasswordExpires = Date.now() + 10 * 60 * 1000;

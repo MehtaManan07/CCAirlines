@@ -31,7 +31,7 @@ const flightSchema = new mongoose.Schema(
     ],
     departureDate: {
       //up
-      type: String, // format is YYYY-MM-DD
+      type: Date, // format is YYYY-MM-DD
       trim: true,
       required: [true, 'Flight requires departure date'],
     },
@@ -80,18 +80,20 @@ flightSchema.pre('save', async function (next) {
   next();
 });
 
-// delete seats when a flight is deleted
+// delete seats and bookings when a flight is deleted
 flightSchema.pre("remove", async function (next) {
   console.log(`Seats being removed from flight ${this.name}`.bgBlue);
+  await this.model('Booking').deleteMany({ flight: this._id })
   await this.model("Seat").deleteMany({ flight: this._id });
+  // to do => delete those passengers from record as well
   next();
 });
 
 
 flightSchema.pre(/^find/, function (next) {
   this.populate('crewStaff', 'name role')
-    .populate('from', 'name')
-    .populate('to', 'name')
+    // .populate('from', 'name')
+    // .populate('to', 'name')
     .populate('totalSeats');
   next();
 });
