@@ -4,46 +4,50 @@ const validator = require('validator');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
-const userSchema = new mongoose.Schema({
-  name: {
-    type: String,
-    required: [true, 'Please tell us your name'],
-    trim: true,
-  },
-  role: {
-    type: String,
-    enum: ['superuser', 'user', 'staff', 'lead-staff'],
-    default: 'user',
-  },
-  email: {
-    type: String,
-    required: [true, 'Please provide your email'],
-    unique: true,
-    lowercase: true,
-    validate: [validator.isEmail, 'Please provide a valid email'],
-  },
-  photo: {
-    type: String,
-    default:
-      'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460__340.png',
-  },
-  password: {
-    type: String,
-    required: [true, 'Please provide a password'], // perhaps compulsory for !users
-    minlength: 6,
-    select: false,
-  },
-  bookings: [
-    {
-      type: mongoose.Schema.ObjectId,
-      ref: 'Booking',
+const userSchema = new mongoose.Schema(
+  {
+    name: {
+      type: String,
+      required: [true, 'Please tell us your name'],
+      trim: true,
     },
-  ],
-  phoneNum: { type: Number, default: 900990099009 },
-  address: String,
-  passwordChangedAt: Date,
-  resetPasswordToken: String,
-  resetPasswordExpires: Date,
+    role: {
+      type: String,
+      enum: ['superuser', 'user', 'staff', 'lead-staff'],
+      default: 'user',
+    },
+    email: {
+      type: String,
+      required: [true, 'Please provide your email'],
+      unique: true,
+      lowercase: true,
+      validate: [validator.isEmail, 'Please provide a valid email'],
+    },
+    photo: {
+      type: String,
+      default:
+        'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460__340.png',
+    },
+    password: {
+      type: String,
+      required: [true, 'Please provide a password'], // perhaps compulsory for !users
+      minlength: 6,
+      select: false,
+    },
+    phoneNum: { type: Number, default: 900990099009 },
+    address: String,
+    passwordChangedAt: Date,
+    resetPasswordToken: String,
+    resetPasswordExpires: Date,
+  },
+  { toJSON: { virtuals: true }, toObject: { virtuals: true } }
+);
+
+// Virtual populate
+userSchema.virtual('bookings', {
+  ref: 'Booking',
+  foreignField: 'user',
+  localField: '_id',
 });
 
 userSchema.pre('save', async function (next) {

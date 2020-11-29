@@ -3,8 +3,6 @@ const ErrorResponse = require('../middlewares/ErrorResponse');
 const { Booking, Passenger } = require('../models/BookingModel');
 const Seat = require('../models/SeatModel');
 const Flight = require('../models/FlightModel');
-const sendPdf = require('../utils/Pdf');
-const Email = require('../utils/Email');
 
 exports.newBooking = asyncHandler(async (req, res, next) => {
   /* 
@@ -67,38 +65,11 @@ const seatOps = async (req, passenger, flight, next) => {
   await flight.save();
   return passenger;
 };
-
-const sendInvoice = async (id, next) => {
-  const booking = await Booking.findById(id);
-  if (!booking) {
-    return next(new ErrorResponse(`Error while sending Invoice`, 404));
-  }
-  try {
-    await new Email(booking.user).sendBooking(id);
-  } catch (error) {
-    console.log(error);
-  }
-};
-
-const generateInvoice = async (id, next) => {
-  const booking = await Booking.findById(id);
-  if (!booking) {
-    return next(new ErrorResponse(`Error while sending Invoice`, 404));
-  }
-  try {
-    await sendPdf(booking);
-    req.booking = booking;
-  } catch (error) {
-    console.log('ugh\n');
-    console.log(error);
-  }
-};
-
 const calcPrice = (flight, type) => {
   const deptDate = new Date(flight.departureDate);
   const today = new Date();
   const timeDiff = deptDate.getTime() - today.getTime();
-  const kTime = Math.round(timeDiff / (1000 * 60 * 60 * 24));
+  const kTime = Math.round(timeDiff / (1000 * 60 * 60 * 24)); // total days
   let kPrice = 100;
 
   if (type === 'Business') kPrice = 300;
@@ -126,3 +97,42 @@ exports.getBookingById = asyncHandler(async (req, res, next) => {
   // }
   res.status(200).json({ success: true, data: booking });
 });
+
+exports.cancelBooking = asyncHandler(async (req, res, next) => {
+  const booking = await Booking.findById(req.params.id);
+  if (!booking) {
+    return next(new ErrorResponse(`No booking found`, 404));
+  }
+  const flight = await Flight.findById(booking.flight);
+  const cCharges = cancelCharges(flight, booking);
+  const final = await booking.passengers.map(async (p) => {
+    await Seat.findByIdAndUpdate(p.seat, { available: true });
+    await Passenger.findByIdAndRemove(p._id);
+  });
+  res
+    .status(200)
+    .json({
+      success: true,
+      data: {
+        message: 'Booking successfully cancelled',
+        cancellationCharges: cCharges,
+      },
+    });
+});
+
+const cancelCharges = (flight, booking) => {
+  const deptDate = new Date(flight.departureDate);
+  const today = new Date();
+  const kTime = Math.round(
+    (deptDate.getTime() - today.getTime()) / (1000 * 60 * 60 * 24)
+  ); // total days
+  let kPrice;
+  if (kTime <= 10 && kTime > 0) {
+    kPrice = 500;
+  } else if (kTime <= 20 && kTime > 10) {
+    kPrice = 300;
+  } else if (kTime <= 30 && kTime > 20) {
+    kPrice = 100;
+  } else kPrice = 20;
+  return (booking.price * booking.passengers.length * kTime) / kPrice;
+};

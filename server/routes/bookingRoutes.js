@@ -9,11 +9,12 @@ router.use(protect);
 router.post('/:flightId', bookingController.newBooking);
 router.get(
   '/',
-  authorize('superuser'),
   advancedResults(Booking, 'passengers'),
   bookingController.getAllBookings
 );
+
 router.get('/:id', bookingController.getBookingById);
+router.post('/cancel/:id',bookingController.cancelBooking);
 
 // router
 //   .route('/:id')

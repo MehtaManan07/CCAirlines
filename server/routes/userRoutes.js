@@ -1,10 +1,12 @@
 const express = require('express');
-// const userController = require('./../controllers/userController');
+const userController = require('./../controllers/userControllers');
 const authController = require('./../controllers/authControllers');
 const { protect, authorize } = require('../middlewares/auth');
+const advancedResults = require('../utils/filterFeatures');
 
 const router = express.Router();
 const passport = require('passport');
+const User = require('../models/UserModel');
 
 // there are 13 routes here
 
@@ -23,7 +25,7 @@ router.get('/google/callback', passport.authenticate('google'), (req, res) => {
 });
 router.get('/logout', authController.logout);
 // // All routes from this middlewares are available to logged in users only
-// router.use(protect);
+router.use(protect);
 
 // router.get('/me', userController.getMe);
 // router.put(
@@ -35,12 +37,11 @@ router.get('/logout', authController.logout);
 // router.delete('/deleteMe', userController.deleteMe);
 
 // // All routes from this middlewares are available to logged in admin only
-// router.use(authorize('admin'));
+// router.use(authorize('superuser'));
 
-// router
-//   .route('/')
-//   .get(userController.getAllUsers)
-//   .post(userController.createUser);
+router
+  .route('/')
+  .get(advancedResults(User,'bookings'),userController.getAllUsers)
 
 // router
 //   .route('/:id')
