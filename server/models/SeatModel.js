@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-const slugify = require('slugify');
 const { ObjectId } = mongoose.Schema;
 
 const seatSchema = new mongoose.Schema({
