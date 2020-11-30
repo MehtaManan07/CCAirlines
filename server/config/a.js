@@ -37,9 +37,8 @@
 //   .map((l) => convert(l)).reduce((a,b) => a.concat(b))
 // console.log(lol)
 // if n is b/w 11 to 20 || 21 to 30 ||
-var myDate = new Date("2013-04-08T10:28:43Z");
-var myoDate = new Date("2013-04-08T22:28:43Z");
+// var myDate = new Date("2013-04-08T10:28:43Z");
+// var myoDate = new Date("2013-04-08T22:28:43Z");
 
-
-console.log((myoDate - myDate)/3600000)
-console.log(453/24)
+// console.log((myoDate - myDate)/3600000)
+// console.log(453/24)

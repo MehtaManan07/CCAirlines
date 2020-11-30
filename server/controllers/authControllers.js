@@ -46,9 +46,7 @@ const sendTokenResponse = (exports.sendTokenResponse = (
   };
 
   // if (process.env.NODE_ENV === 'production') cookieOptions.secure = true;
-  console.log('123 =>\n', token);
   res.cookie('jwtCC', token, cookieOptions);
-  console.log('123456');
 
   user.password = undefined;
   res.status(statusCode).json({

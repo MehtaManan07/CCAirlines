@@ -45,6 +45,7 @@ app.use('/api/v1/users', require('./server/routes/userRoutes'))
 app.use('/api/v1/flights', require('./server/routes/flightRoutes'))
 app.use('/api/v1/bookings', require('./server/routes/bookingRoutes'))
 app.use('/api/v1/web_check', require('./server/routes/webRoutes'))
+app.use('/api/v1/airports', require('./server/routes/airportRoutes'))
 
 app.all('*', (req, res, next) => {
   next(new ErrorResponse(` Can't find ${req.originalUrl} on this server`, 404));

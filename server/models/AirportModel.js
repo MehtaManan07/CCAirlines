@@ -1,4 +1,18 @@
 const mongoose = require('mongoose');
+
+const gateSchema = new mongoose.Schema({
+  name: String,
+  available: {
+    type: Boolean,
+    default: true,
+  },
+  flight: {
+    type: mongoose.Schema.ObjectId,
+  },
+});
+
+const Gate = mongoose.model('Gate', gateSchema);
+
 const airportSchema = new mongoose.Schema({
   name: {
     type: String,
@@ -8,7 +22,7 @@ const airportSchema = new mongoose.Schema({
   },
   city: {
     type: String,
-    required: [true, "Airport must belong to a city"]
+    required: [true, 'Airport must belong to a city'],
   },
   location: {
     //geoJSON
@@ -22,11 +36,17 @@ const airportSchema = new mongoose.Schema({
       index: '2dsphere',
     },
   },
+  gates: [
+    {
+      type: mongoose.Schema.ObjectId,
+      ref: 'Gate',
+    },
+  ],
+  nGates: {
+    type: Number,
+    default: 5,
+  },
 });
 
-const Airport = mongoose.model('Airport',airportSchema)
-module.exports = Airport
-
-// name
-// arriving_flights
-// departing_flights
+const Airport = mongoose.model('Airport', airportSchema);
+module.exports = { Airport, Gate };
