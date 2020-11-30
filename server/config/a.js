@@ -37,18 +37,9 @@
 //   .map((l) => convert(l)).reduce((a,b) => a.concat(b))
 // console.log(lol)
 // if n is b/w 11 to 20 || 21 to 30 ||
-let n,k;
-const kTime = 31
-if((kTime <= 10 && kTime > 0)){ // 1,2,3,4,5,6,7,8,9,10
-  k = 500;
-} else if(kTime <= 20 && kTime > 10){ // 11,12,13,14,15,16,17,18,19
-  k = 300
-} else if(kTime <= 30 && kTime > 20){
-  k = 100
-} else k = 20;
-console.log(k)
-// 100       200       300
-//     10       20       30
-// ----------------------------
+var myDate = new Date("2013-04-08T10:28:43Z");
+var myoDate = new Date("2013-04-08T22:28:43Z");
 
-console.log(13600 * 45 / 300)
+
+console.log((myoDate - myDate)/3600000)
+console.log(453/24)

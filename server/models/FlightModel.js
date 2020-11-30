@@ -15,32 +15,30 @@ const flightSchema = new mongoose.Schema(
     from: { type: ObjectId, ref: 'Airport' },
     to: { type: ObjectId, ref: 'Airport' },
     features: [String],
-    departureTime: {
-      type: String,
-      required: ['Please mention departure time of flight'],
+    arrivalDate: {
+      //up
+      type: Date, // format is YYYY-MM-DD
+      trim: true,
+      required: [true, 'Flight requires arrival date'],
     },
-    arrivalTime: {
-      type: String,
-      required: ['Please mention arrival time of flight'],
-    },
-    crewStaff: [
-      {
-        type: ObjectId,
-        ref: 'User',
-      },
-    ],
     departureDate: {
       //up
       type: Date, // format is YYYY-MM-DD
       trim: true,
       required: [true, 'Flight requires departure date'],
     },
+    crewStaff: [
+      {
+        type: ObjectId,
+        ref: 'User', // YYYY-MM-DD 20:00 21:00
+      },
+    ],
     bookedSeats: [
       {
         type: ObjectId,
         ref: 'Seat',
-        default: []
-      }
+        default: [],
+      },
     ],
     isAvailable: {
       type: Boolean,
@@ -74,6 +72,13 @@ flightSchema.virtual('seats', {
   foreignField: 'flight',
   localField: '_id',
 });
+
+flightSchema.virtual('duration').get(function (next) {
+  let dDate = this.departureDate;
+  let aDate = this.arrivalDate;
+  const durationTime = (aDate - dDate)/3600000
+  return durationTime // hours
+});
 // Document Middleware, runs before .save() and .create()
 flightSchema.pre('save', async function (next) {
   this.slug = slugify(this.name, { lower: true });
@@ -81,14 +86,13 @@ flightSchema.pre('save', async function (next) {
 });
 
 // delete seats and bookings when a flight is deleted
-flightSchema.pre("remove", async function (next) {
+flightSchema.pre('remove', async function (next) {
   console.log(`Seats being removed from flight ${this.name}`.bgBlue);
-  await this.model('Booking').deleteMany({ flight: this._id })
-  await this.model("Seat").deleteMany({ flight: this._id });
+  await this.model('Booking').deleteMany({ flight: this._id });
+  await this.model('Seat').deleteMany({ flight: this._id });
   // to do => delete those passengers from record as well
   next();
 });
-
 
 flightSchema.pre(/^find/, function (next) {
   this.populate('crewStaff', 'name role')

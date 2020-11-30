@@ -5,19 +5,46 @@ const Seat = require('../models/SeatModel');
 const Flight = require('../models/FlightModel');
 const User = require('../models/UserModel');
 
+// 1. Check in through email and pnr;
+// 2. Option for selection of seats
+// 3. Check individual passenger in
+
 exports.chechkIn = asyncHandler(async (req, res, next) => {
-  const { email, pnr } = req.body;
+  const { pnr } = req.params;
+  const { email } = req.body;
 
   const user = await User.findOne({ email });
   if (!user) {
     return next(new ErrorResponse(`Please check your EmailId`, 400));
   }
-  const booking = await Booking.findOne({ _id: pnr, checkedIn: false });
+  const booking = await Booking.findOne({
+    _id: pnr,
+    // checkedIn: false,
+  });
   if (!booking) {
-    return next(new ErrorResponse(`Please check you PNR number, or you have already checked in`, 400));
+    return next(
+      new ErrorResponse(
+        `Please check you PNR number, or you have already checked in`,
+        400
+      )
+    );
   }
-  if(user._id !== booking.user._id) {
-    return next(new ErrorResponse(`You cannot touch anyone else's booking`, 400));
+  const {  departureDate } = booking.flight
+  const today = new Date();
+
+  if((departureDate - today)/3600000 < 0.25){
+    return next(new ErrorResponse(`Sorry the counter is closed`,400))
+  }
+  
+
+  if((departureDate - today)/3600000 > 2){
+    return next(new ErrorResponse(`You can noly check in before 2 hours of departure`,400))
+  }
+  
+  if (user._id.toString() !== booking.user._id.toString()) {
+    return next(
+      new ErrorResponse(`You cannot touch anyone else's booking`, 400)
+    );
   }
 
   const newBook = await Booking.findByIdAndUpdate(
@@ -25,7 +52,7 @@ exports.chechkIn = asyncHandler(async (req, res, next) => {
     { checkedIn: true },
     { new: true }
   );
-  res.status(200).json({ success: true, data: newBook });
+  res.status(200).json({ success: true, data: booking });
 });
 
 exports.selectSeat = asyncHandler(async (req, res, next) => {
@@ -63,3 +90,28 @@ exports.selectSeat = asyncHandler(async (req, res, next) => {
   ).populate('seat');
   res.status(200).json({ success: true, data: { pass1, pass2, updatedSeat } });
 });
+
+exports.checkBaggage = asyncHandler(async (req, res, next) => {
+  const { weight } = req.body;
+  const { bookingId } = req.params;
+  let oldBooking = await Booking.findOne({
+    _id: bookingId,
+    checkedIn: true,
+    bagsChecked: false,
+  });
+  if (!oldBooking) {
+    return next(new ErrorResponse(`Make sure you have checked in`, 400));
+  }
+  let addPrice = 0;
+  if (weight > 15) {
+    addPrice = (weight - 15) * 200;
+  }
+  const booking = await Booking.findByIdAndUpdate(
+    bookingId,
+    { price: oldBooking.price + addPrice, bagsChecked: true },
+    { new: true, runValidators: true }
+  );
+  res.status(200).json({ success: true, data: booking });
+});
+
+exports.generateBoardingPass = asyncHandler(async (req, res, next) => {});

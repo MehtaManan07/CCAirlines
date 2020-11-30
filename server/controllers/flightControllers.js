@@ -23,7 +23,7 @@ exports.getFlight = asyncHandler(async (req, res, next) => {
 });
 
 exports.createFlight = asyncHandler(async (req, res, next) => {
-  /* req.body = { name, to, from, features, departureTime, arrivalTime, CrewStaff, departureDate, isAvailable, seatsToAdd: { Economy: 50, Business: 25, FirstClass: 15  } } */
+  /* req.body = { name, to, from, features, arrivalDate, CrewStaff, departureDate, isAvailable, seatsToAdd: { Economy: 50, Business: 25, FirstClass: 15  } } */
 
   const { to, from } = req.body;
   const departure = await Airport.findById(from);

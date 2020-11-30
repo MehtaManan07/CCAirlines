@@ -42,6 +42,7 @@ const bookingSchema = new mongoose.Schema({
   flight: {
     type: ObjectId,
     ref: 'Flight',
+    required: [true, 'Booking must belong to a Flight!'],
   },
   checkedIn: {
     type: Boolean,
@@ -61,6 +62,10 @@ const bookingSchema = new mongoose.Schema({
     trim: true,
   },
   numSeats: Number,
+  bagsChecked: {
+    type: Boolean,
+    default: false,
+  },
   createdAt: {
     type: Date,
     default: Date.now(),
@@ -68,7 +73,10 @@ const bookingSchema = new mongoose.Schema({
 });
 
 bookingSchema.pre(/^find/, function (next) {
-  this.populate('passengers').populate('user', 'name phoneNum email');
+  this.populate('passengers')
+    .populate('user', 'name phoneNum email')
+    .populate('flight', 'departureDate arrivalDate');
+    console.log('p')
   next();
 });
 
