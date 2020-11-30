@@ -39,12 +39,12 @@ app.use(passport.initialize())
 app.use(passport.session())
 app.use(cookieParser())
 connectDB();
-app.use(express.static(`${__dirname}/starter/public`));
 
 // 3) ROUTES
 app.use('/api/v1/users', require('./server/routes/userRoutes'))
 app.use('/api/v1/flights', require('./server/routes/flightRoutes'))
 app.use('/api/v1/bookings', require('./server/routes/bookingRoutes'))
+app.use('/api/v1/web_check', require('./server/routes/webRoutes'))
 
 app.all('*', (req, res, next) => {
   next(new ErrorResponse(` Can't find ${req.originalUrl} on this server`, 404));
