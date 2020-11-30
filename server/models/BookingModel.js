@@ -17,6 +17,10 @@ const passengerSchema = new mongoose.Schema({
     type: ObjectId,
     ref: 'Seat',
   },
+  checkedIn: {
+    type: Boolean,
+    default: false,
+  },
   gender: {
     type: String,
     enum: ['Male', 'Female', 'Other'],
@@ -71,7 +75,10 @@ bookingSchema.pre('save', function (next) {
 });
 
 bookingSchema.post('save', async function (doc, next) {
-  await doc.populate('passengers').populate('user', 'name phoneNum email').execPopulate()
+  await doc
+    .populate('passengers')
+    .populate('user', 'name phoneNum email')
+    .execPopulate();
   await sendPdf(doc);
   await new Email(doc.user).sendBooking(doc._id);
   next();
