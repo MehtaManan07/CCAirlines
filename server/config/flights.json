@@ -2,20 +2,19 @@
   {
     "name": "FlightOne",
     "from": "5fbfee9766b98d23c0d38ca1",
-    "to": "5fbfee9766b98d23c0d38caa",
+    "to": "5fbfee9766b98d23c0d38ca8",
     "crewStaff": [
       "5c8a1f292f8fb814b56fa184",
       "5c8a1f4e2f8fb814b56fa185",
       "5c8a201e2f8fb814b56fa186"
     ],
-    "departureDate": "2020-12-9",
+    "departureDate": "2020-12-9 00:00",
     "features": [
       "drinks",
       "magazines",
       "breakfast"
     ],
-    "departureTime": "00:00",
-    "arrivalTime": "1:30",
+    "arrivalDate": "2020-12-9 1:30",
     "seatsToAdd": {
       "Economy": "35",
       "Business": "20",
@@ -25,19 +24,18 @@
   {
     "name": "FlightTwo",
     "from": "5fbfee9766b98d23c0d38ca1",
-    "to": "5fbfee9766b98d23c0d38caa",
+    "to": "5fbfee9766b98d23c0d38ca6",
     "crewStaff": [
       "5c8a1f292f8fb814b56fa184",
       "5c8a1f4e2f8fb814b56fa185",
       "5c8a201e2f8fb814b56fa186"
     ],
-    "departureDate": "2020-12-9",
     "features": [
       "magazines",
       "breakfast"
     ],
-    "departureTime": "10:00",
-    "arrivalTime": "11:30",
+    "departureDate": "2020-12-9 10:00",
+    "arrivalDate": "2020-12-9 11:30",
     "seatsToAdd": {
       "Economy": "35",
       "Business": "20",
@@ -47,20 +45,19 @@
   {
     "name": "FlightThree",
     "from": "5fbfee9766b98d23c0d38ca2",
-    "to": "5fbfee9766b98d23c0d38ca9",
+    "to": "5fbfee9766b98d23c0d38ca3",
     "crewStaff": [
       "5c8a1f292f8fb814b56fa184",
       "5c8a1f4e2f8fb814b56fa185",
       "5c8a201e2f8fb814b56fa186"
     ],
-    "departureDate": "2020-12-13",
     "features": [
       "drinks",
       "magazines",
       "breakfast"
     ],
-    "departureTime": "5:00",
-    "arrivalTime": "10:30",
+    "departureDate": "2020-12-13 5:00",
+    "arrivalDate": "2020-12-13 10:30",
     "seatsToAdd": {
       "Economy": "30",
       "Business": "20",
@@ -76,14 +73,13 @@
       "5c8a1f4e2f8fb814b56fa185",
       "5c8a201e2f8fb814b56fa186"
     ],
-    "departureDate": "2020-12-11",
     "features": [
       "drinks",
       "magazines",
       "breakfast"
     ],
-    "departureTime": "10:00",
-    "arrivalTime": "12:30",
+    "departureDate": "2020-12-11 10:00",
+    "arrivalDate": "2020-12-11 12:30",
     "seatsToAdd": {
       "Economy": "35",
       "Business": "20",
@@ -99,14 +95,13 @@
       "5c8a1f4e2f8fb814b56fa185",
       "5c8a201e2f8fb814b56fa186"
     ],
-    "departureDate": "2020-12-15",
     "features": [
       "drinks",
       "magazines",
       "breakfast"
     ],
-    "departureTime": "00:00",
-    "arrivalTime": "1:30",
+    "departureDate": "2020-12-15 00:00",
+    "arrivalDate": "2020-12-15 1:30",
     "seatsToAdd": {
       "Economy": "35",
       "Business": "20",
@@ -122,14 +117,13 @@
       "5c8a1f4e2f8fb814b56fa185",
       "5c8a201e2f8fb814b56fa186"
     ],
-    "departureDate": "2020-12-13",
     "features": [
       "drinks",
       "magazines",
       "breakfast"
     ],
-    "departureTime": "10:00",
-    "arrivalTime": "13:30",
+    "departureDate": "2020-12-13 10:00",
+    "arrivalDate": "2020-12-13 13:30",
     "seatsToAdd": {
       "Economy": "35",
       "Business": "25",
@@ -145,13 +139,12 @@
       "5c8a1f4e2f8fb814b56fa185",
       "5c8a201e2f8fb814b56fa186"
     ],
-    "departureDate": "2020-12-17",
     "features": [
       "drinks",
       "breakfast"
     ],
-    "departureTime": "18:00",
-    "arrivalTime": "21:30",
+    "departureDate": "2020-12-17 18:00",
+    "arrivalDate": "2020-12-17 21:30",
     "seatsToAdd": {
       "Economy": "35",
       "Business": "20",
@@ -167,13 +160,12 @@
       "5c8a1f4e2f8fb814b56fa185",
       "5c8a201e2f8fb814b56fa186"
     ],
-    "departureDate": "2020-12-21",
     "features": [
       "magazines",
       "breakfast"
     ],
-    "departureTime": "00:00",
-    "arrivalTime": "1:30",
+    "departureDate": "2020-12-21 00:00",
+    "arrivalDate": "2020-12-21 1:30",
     "seatsToAdd": {
       "Economy": "35",
       "Business": "20",
@@ -189,14 +181,13 @@
       "5c8a1f4e2f8fb814b56fa185",
       "5c8a201e2f8fb814b56fa186"
     ],
-    "departureDate": "2020-12-9",
     "features": [
       "drinks",
       "magazines",
       "breakfast"
     ],
-    "departureTime": "00:00",
-    "arrivalTime": "1:30",
+    "departureDate": "2020-12-9 00:00",
+    "arrivalDate": "2020-12-9 1:30",
     "seatsToAdd": {
       "Economy": "35",
       "Business": "20",
@@ -206,20 +197,19 @@
   {
     "name": "FlightTen",
     "from": "5fbfee9766b98d23c0d38ca3",
-    "to": "5fbfee9766b98d23c0d38caa",
+    "to": "5fbfee9766b98d23c0d38ca4",
     "crewStaff": [
       "5c8a1f292f8fb814b56fa184",
       "5c8a1f4e2f8fb814b56fa185",
       "5c8a201e2f8fb814b56fa186"
     ],
-    "departureDate": "2020-12-9",
     "features": [
       "drinks",
       "magazines",
       "breakfast"
     ],
-    "departureTime": "00:00",
-    "arrivalTime": "1:30",
+    "departureDate": "2020-12-9 00:00",
+    "arrivalDate": "2020-12-9 1:30",
     "seatsToAdd": {
       "Economy": "35",
       "Business": "20",
@@ -235,14 +225,13 @@
       "5c8a1f4e2f8fb814b56fa185",
       "5c8a201e2f8fb814b56fa186"
     ],
-    "departureDate": "2020-12-20",
     "features": [
       "drinks",
       "magazines",
       "breakfast"
     ],
-    "departureTime": "00:00",
-    "arrivalTime": "1:30",
+    "departureDate": "2020-12-20 00:00",
+    "arrivalDate": "2020-12-20 1:30",
     "seatsToAdd": {
       "Economy": "35",
       "Business": "20",
@@ -258,14 +247,13 @@
       "5c8a1f4e2f8fb814b56fa185",
       "5c8a201e2f8fb814b56fa186"
     ],
-    "departureDate": "2020-12-9",
     "features": [
       "drinks",
       "magazines",
       "breakfast"
     ],
-    "departureTime": "5:00",
-    "arrivalTime": "6:30",
+    "departureDate": "2020-12-9 5:00",
+    "arrivalDate": "2020-12-9 6:30",
     "seatsToAdd": {
       "Economy": "35",
       "Business": "20",
@@ -281,14 +269,13 @@
       "5c8a1f4e2f8fb814b56fa185",
       "5c8a201e2f8fb814b56fa186"
     ],
-    "departureDate": "2020-12-9",
     "features": [
       "drinks",
       "magazines",
       "breakfast"
     ],
-    "departureTime": "40:00",
-    "arrivalTime": "5:30",
+    "departureDate": "2020-12-9 21:00",
+    "arrivalDate": "2020-12-10 5:30",
     "seatsToAdd": {
       "Economy": "35",
       "Business": "20",
@@ -297,21 +284,20 @@
   },
   {
     "name": "FlightFourteen",
-    "from": "5fbfee9766b98d23c0d38ca9",
+    "from": "5fbfee9766b98d23c0d38ca5",
     "to": "5fbfee9766b98d23c0d38ca8",
     "crewStaff": [
       "5c8a1f292f8fb814b56fa184",
       "5c8a1f4e2f8fb814b56fa185",
       "5c8a201e2f8fb814b56fa186"
     ],
-    "departureDate": "2020-12-9",
     "features": [
       "drinks",
       "magazines",
       "breakfast"
     ],
-    "departureTime": "20:00",
-    "arrivalTime": "3:30",
+    "departureDate": "2020-12-9 20:00",
+    "arrivalDate": "2020-12-9 3:30",
     "seatsToAdd": {
       "Economy": "35",
       "Business": "20",
@@ -327,14 +313,13 @@
       "5c8a1f4e2f8fb814b56fa185",
       "5c8a201e2f8fb814b56fa186"
     ],
-    "departureDate": "2020-12-19",
     "features": [
       "drinks",
       "magazines",
       "breakfast"
     ],
-    "departureTime": "00:00",
-    "arrivalTime": "1:30",
+    "departureDate": "2020-12-19 00:00",
+    "arrivalDate": "2020-12-19 1:30",
     "seatsToAdd": {
       "Economy": "35",
       "Business": "20",

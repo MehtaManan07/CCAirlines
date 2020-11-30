@@ -32,7 +32,7 @@ const flights = JSON.parse(
 const importData = async () => {
   try {
     let a = Date.now();
-    await Airport.create(cities);
+    // await Airport.create(cities);
     await User.create(users);
     // await Flight.create(flights);
     console.log('Data imported'.bgGreen);
@@ -48,7 +48,7 @@ const importData = async () => {
 // delete from db
 const deleteData = async () => {
   try {
-    await Airport.deleteMany();
+    // await Airport.deleteMany();
     await User.deleteMany();
     await Seat.deleteMany();
     await Booking.deleteMany();

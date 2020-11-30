@@ -1,7 +1,5 @@
 const asyncHandler = require("../middlewares/async");
-const ErrorResponse = require("../middlewares/ErrorResponse");
+const factory = require("../utils/factoryFunctions");
 const User = require("../models/UserModel");
 
-exports.getAllUsers = asyncHandler(async(req,res,next) => {
-    res.status(200).json(res.advancedResults);
-})
+exports.getAllUsers = factory.getAll(User)

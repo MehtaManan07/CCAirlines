@@ -2,7 +2,6 @@ const express = require('express');
 const userController = require('./../controllers/userControllers');
 const authController = require('./../controllers/authControllers');
 const { protect, authorize } = require('../middlewares/auth');
-const advancedResults = require('../utils/filterFeatures');
 
 const router = express.Router();
 const passport = require('passport');
@@ -39,9 +38,7 @@ router.use(protect);
 // // All routes from this middlewares are available to logged in admin only
 // router.use(authorize('superuser'));
 
-router
-  .route('/')
-  .get(advancedResults(User,'bookings'),userController.getAllUsers)
+router.route('/').get(userController.getAllUsers);
 
 // router
 //   .route('/:id')

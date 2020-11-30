@@ -1,20 +1,16 @@
 const express = require('express');
 const router = express.Router();
 const bookingController = require('../controllers/bookingControllers');
-const advancedResults = require('../utils/filterFeatures');
+
 const { protect, authorize } = require('../middlewares/auth');
 const { Booking } = require('../models/BookingModel');
 router.use(protect);
 
 router.post('/:flightId', bookingController.newBooking);
-router.get(
-  '/',
-  advancedResults(Booking, 'passengers'),
-  bookingController.getAllBookings
-);
+router.get('/', bookingController.getAllBookings);
 
 router.get('/:id', bookingController.getBookingById);
-router.post('/cancel/:id',bookingController.cancelBooking);
+router.post('/cancel/:id', bookingController.cancelBooking);
 
 // router
 //   .route('/:id')

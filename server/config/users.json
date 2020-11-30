@@ -2,7 +2,7 @@
     {
       "_id": "5c8a1d5b0190b214360dc057",
       "name": "Manan Mehta",
-      "email": "abc@superuser.com",
+      "email": "mananmehta0507@gmail.com",
       "role": "superuser",
       "password": "password",
       "passwordConfirm": "password"
@@ -18,7 +18,7 @@
     {
       "_id": "5c8a1e1a2f8fb814b56fa182",
       "name": "Other email",
-      "email": "mananmehta0507@gmail.com",
+      "email": "lol@example.com",
       "role": "user",
       "password": "password",
       "passwordConfirm": "password"

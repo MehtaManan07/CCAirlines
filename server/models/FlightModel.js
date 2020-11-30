@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const validator = require('validator');
 const slugify = require('slugify');
+const schedule = require('node-schedule');
 const { ObjectId } = mongoose.Schema;
 
 const flightSchema = new mongoose.Schema(
@@ -76,8 +77,8 @@ flightSchema.virtual('seats', {
 flightSchema.virtual('duration').get(function (next) {
   let dDate = this.departureDate;
   let aDate = this.arrivalDate;
-  const durationTime = (aDate - dDate)/3600000
-  return durationTime // hours
+  const durationTime = (aDate - dDate) / 3600000;
+  return durationTime; // hours
 });
 // Document Middleware, runs before .save() and .create()
 flightSchema.pre('save', async function (next) {

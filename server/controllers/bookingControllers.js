@@ -3,10 +3,11 @@ const ErrorResponse = require('../middlewares/ErrorResponse');
 const { Booking, Passenger } = require('../models/BookingModel');
 const Seat = require('../models/SeatModel');
 const Flight = require('../models/FlightModel');
+const factory = require('../utils/factoryFunctions');
 
 exports.newBooking = asyncHandler(async (req, res, next) => {
   /* 
-  req.body = { passengers: [{ name: "JDoe", age: 69, gender: 'Male, type: "Economy" },{ name: "JDoe", age: 69, gender: 'Male', type: 'Business' }]}
+  req.body = { passengers: [{ name: "JDoe", age: 69, gender: 'Male, type: "Economy" },{ name: "JDoe", age: 69, gender: 'Male', type: 'Business', meal: [] }]}
     */
 
   // check if flight is available
@@ -78,10 +79,6 @@ const calcPrice = (flight, type) => {
   return flight.basePrice + (kPrice * flight.bookedSeats.length) / kTime;
 };
 
-exports.getAllBookings = asyncHandler(async (req, res, next) => {
-  res.status(200).json(res.advancedResults);
-});
-
 exports.getBookingById = asyncHandler(async (req, res, next) => {
   const booking = await Booking.findById(req.params.id);
   if (!booking) {
@@ -109,15 +106,13 @@ exports.cancelBooking = asyncHandler(async (req, res, next) => {
     await Seat.findByIdAndUpdate(p.seat, { available: true });
     await Passenger.findByIdAndRemove(p._id);
   });
-  res
-    .status(200)
-    .json({
-      success: true,
-      data: {
-        message: 'Booking successfully cancelled',
-        cancellationCharges: cCharges,
-      },
-    });
+  res.status(200).json({
+    success: true,
+    data: {
+      message: 'Booking successfully cancelled',
+      cancellationCharges: cCharges,
+    },
+  });
 });
 
 const cancelCharges = (flight, booking) => {
@@ -136,3 +131,5 @@ const cancelCharges = (flight, booking) => {
   } else kPrice = 20;
   return (booking.price * booking.passengers.length * kTime) / kPrice;
 };
+
+exports.getAllBookings = factory.getAll(Booking);

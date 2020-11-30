@@ -1,13 +1,11 @@
 const Flight = require('../models/FlightModel');
-const Airport = require('../models/AirportModel');
+const {Airport} = require('../models/AirportModel');
 const Seat = require('../models/SeatModel');
 const asyncHandler = require('../middlewares/async');
 const ErrorResponse = require('../middlewares/ErrorResponse');
 const factory = require('../utils/factoryFunctions');
 
-exports.getAllFlights = asyncHandler(async (req, res, next) => {
-  res.status(200).json(res.advancedResults);
-});
+exports.getAllFlights = factory.getAll(Flight)
 
 exports.getFlight = asyncHandler(async (req, res, next) => {
   const tour = await Flight.findById(req.params.id).populate(
@@ -91,6 +89,4 @@ exports.getSeatsForFlight = asyncHandler(async (req,res,next) => {
   res.json({ success: true, data: seats })
 })
 
-exports.getAllSeats = asyncHandler(async (req, res, next) => {
-  res.status(200).json(res.advancedResults);
-});
+exports.getAllSeats = factory.getAll(Seat)
