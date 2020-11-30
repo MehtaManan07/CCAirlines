@@ -3,6 +3,30 @@ const ErrorResponse = require('../middlewares/ErrorResponse');
 const { Booking, Passenger } = require('../models/BookingModel');
 const Seat = require('../models/SeatModel');
 const Flight = require('../models/FlightModel');
+const User = require('../models/UserModel');
+
+exports.chechkIn = asyncHandler(async (req, res, next) => {
+  const { email, pnr } = req.body;
+
+  const user = await User.findOne({ email });
+  if (!user) {
+    return next(new ErrorResponse(`Please check your EmailId`, 400));
+  }
+  const booking = await Booking.findOne({ _id: pnr, checkedIn: false });
+  if (!booking) {
+    return next(new ErrorResponse(`Please check you PNR number, or you have already checked in`, 400));
+  }
+  if(user._id !== booking.user._id) {
+    return next(new ErrorResponse(`You cannot touch anyone else's booking`, 400));
+  }
+
+  const newBook = await Booking.findByIdAndUpdate(
+    pnr,
+    { checkedIn: true },
+    { new: true }
+  );
+  res.status(200).json({ success: true, data: newBook });
+});
 
 exports.selectSeat = asyncHandler(async (req, res, next) => {
   // req.body = { passengerId, reqSeatId, flightId }

@@ -43,6 +43,10 @@ const bookingSchema = new mongoose.Schema({
     type: ObjectId,
     ref: 'Flight',
   },
+  checkedIn: {
+    type: Boolean,
+    default: false,
+  },
   user: {
     type: ObjectId,
     ref: 'User',
