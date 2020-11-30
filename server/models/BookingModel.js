@@ -75,7 +75,6 @@ const bookingSchema = new mongoose.Schema({
 bookingSchema.pre(/^find/, function (next) {
   this.populate('passengers')
     .populate('user', 'name phoneNum email')
-    .populate('flight', 'departureDate arrivalDate');
     console.log('p')
   next();
 });

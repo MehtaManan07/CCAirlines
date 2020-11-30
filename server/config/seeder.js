@@ -9,6 +9,7 @@ const Airport = require("../models/AirportModel")
 const User = require("../models/UserModel");
 const Flight = require("../models/FlightModel");
 const Seat = require("../models/SeatModel");
+const { Booking, Passenger } = require("../models/BookingModel");
 
 mongoose.connect(process.env.MONGO_URI, {
   useNewUrlParser: true,
@@ -50,6 +51,8 @@ const deleteData = async () => {
     await Airport.deleteMany();
     await User.deleteMany();
     await Seat.deleteMany();
+    await Booking.deleteMany();
+    await Passenger.deleteMany();
     await Flight.deleteMany();
     console.log("Data deleted".bgRed);
     process.exit(0)

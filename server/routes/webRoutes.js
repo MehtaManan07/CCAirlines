@@ -5,5 +5,6 @@ const webController = require('../controllers/webControllers');
 router.post('/:pnr', webController.chechkIn);
 router.post('/change', webController.selectSeat);
 router.put('/baggage/:bookingId', webController.checkBaggage);
+router.get('/:id', webController.generateBoardingPass);
 
 module.exports = router;

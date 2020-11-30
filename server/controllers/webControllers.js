@@ -19,8 +19,8 @@ exports.chechkIn = asyncHandler(async (req, res, next) => {
   }
   const booking = await Booking.findOne({
     _id: pnr,
-    // checkedIn: false,
-  });
+    checkedIn: false,
+  }).populate('flight', 'departureDate arrivalDate');
   if (!booking) {
     return next(
       new ErrorResponse(
@@ -29,18 +29,22 @@ exports.chechkIn = asyncHandler(async (req, res, next) => {
       )
     );
   }
-  const {  departureDate } = booking.flight
+  const { departureDate } = booking.flight;
   const today = new Date();
 
-  if((departureDate - today)/3600000 < 0.25){
-    return next(new ErrorResponse(`Sorry the counter is closed`,400))
+  if ((departureDate - today) / 3600000 < 0.25) {
+    return next(new ErrorResponse(`Sorry the counter is closed`, 400));
   }
-  
 
-  if((departureDate - today)/3600000 > 2){
-    return next(new ErrorResponse(`You can noly check in before 2 hours of departure`,400))
+  if ((departureDate - today) / 3600000 > 2) {
+    return next(
+      new ErrorResponse(
+        `You can noly check in before 2 hours of departure`,
+        400
+      )
+    );
   }
-  
+
   if (user._id.toString() !== booking.user._id.toString()) {
     return next(
       new ErrorResponse(`You cannot touch anyone else's booking`, 400)
@@ -114,4 +118,16 @@ exports.checkBaggage = asyncHandler(async (req, res, next) => {
   res.status(200).json({ success: true, data: booking });
 });
 
-exports.generateBoardingPass = asyncHandler(async (req, res, next) => {});
+exports.generateBoardingPass = asyncHandler(async (req, res, next) => {
+  const booking = await Booking.findOne({
+    _id: req.params.id,
+    bagsChecked: true,
+    checkedIn: true,
+  }).populate('flight passengers user')
+  if (!booking) {
+    return new ErrorResponse(
+      `Please check if you have completed all previous procedures`
+    );
+  }
+  res.status(200).json({ success: true, data: booking });
+});
