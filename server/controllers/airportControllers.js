@@ -12,11 +12,11 @@ exports.newAirport = asyncHandler(async (req, res, next) => {
   nGates = nGates ? nGates : 5;
   for (let i = 0; i < nGates; i++) {
     let name = `A${i}`;
-    console.log(name)
+    console.log(name);
     const newGate = await Gate.create({ name });
     req.body.gates.push(newGate._id);
   }
-    const airport = await Airport.create(req.body);
+  const airport = await Airport.create(req.body);
   res.status(201).json({ success: true, data: airport });
 });
 
@@ -30,6 +30,12 @@ exports.getAirport = asyncHandler(async (req, res, next) => {
     return next(new ErrorResponse(`Airport not found`, 404));
   }
   res.status(200).json({ success: true, data: airport });
+});
+
+exports.getGates = asyncHandler(async (req, res, next) => {
+  console.log(req.params.id)
+  const airport = await Airport.findById(req.params.id).populate('gates');
+  res.status(200).json({ success: true, data: airport.gates });
 });
 
 exports.deleteAirport = factory.deleteOne(Airport);

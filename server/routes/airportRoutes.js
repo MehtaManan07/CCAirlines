@@ -11,7 +11,7 @@ router
   .route('/')
   .get(advancedResults(Airport), airportController.getAllAirports)
   .post(airportController.newAirport)
-
+router.get('/gates/:id',airportController.getGates)
   router.route('/:id')
   .get(airportController.getAirport)
   .put(airportController.updateAirport)
