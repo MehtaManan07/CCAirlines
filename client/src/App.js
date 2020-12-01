@@ -8,6 +8,7 @@ import Login from './pages/Login';
 import Signup from './pages/Register';
 import { useDispatch } from 'react-redux';
 import { getMe } from './redux/actions/auth';
+import Flights from './pages/Flights';
 
 const App = () => {
   const dispatch = useDispatch();
@@ -28,6 +29,7 @@ const App = () => {
         <Route path="/" exact component={Home} />
         <Route path="/login" exact component={Login} />
         <Route path="/register" exact component={Signup} />
+        <Route path="/flights" exact component={Flights} />
       </Switch>
     </>
   );

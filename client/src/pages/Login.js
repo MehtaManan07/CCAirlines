@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { toast } from 'react-toastify';
 import { Button } from 'antd';
 import { MailOutlined, GoogleOutlined } from '@ant-design/icons';

@@ -1,9 +1,10 @@
 import React from 'react'
+import FlightForm from '../components/FlightForm'
 
 const Home = () => {
     return (
-        <div>
-            Home page
+        <div className='container-fluid'>
+            <FlightForm />
         </div>
     )
 }

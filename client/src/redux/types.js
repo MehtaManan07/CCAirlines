@@ -1,3 +1,5 @@
 export const LOGIN = 'LOGIN'
 export const SIGNUP = 'SIGNUP'
 export const LOGOUT = 'LOGOUT'
+export const GET_AIRPORTS = 'GET_AIRPORTS'
+export const GET_FLIGHTS = 'GET_FLIGHTS'

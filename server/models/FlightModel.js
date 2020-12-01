@@ -28,6 +28,8 @@ const flightSchema = new mongoose.Schema(
       trim: true,
       required: [true, 'Flight requires departure date'],
     },
+    departureString: String,
+    arrivalString: String,
     crewStaff: [
       {
         type: ObjectId,
@@ -80,8 +82,11 @@ flightSchema.virtual('duration').get(function (next) {
   const durationTime = (aDate - dDate) / 3600000;
   return durationTime; // hours
 });
+
 // Document Middleware, runs before .save() and .create()
 flightSchema.pre('save', async function (next) {
+  this.departureString = this.departureDate.toISOString().split('T')[0];
+  this.arrivalString = this.arrivalDate.toISOString().split('T')[0];
   this.slug = slugify(this.name, { lower: true });
   next();
 });
