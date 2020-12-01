@@ -19,7 +19,7 @@ exports.chechkIn = asyncHandler(async (req, res, next) => {
   }
   const booking = await Booking.findOne({
     _id: pnr,
-    checkedIn: false,
+    // checkedIn: false,
   }).populate('flight', 'departureDate arrivalDate');
   if (!booking) {
     return next(
@@ -51,12 +51,21 @@ exports.chechkIn = asyncHandler(async (req, res, next) => {
     );
   }
 
+  for (let i = 0; i < booking.passengers.length; i++) {
+    const passenger = booking.passengers[i];
+    await Passenger.findByIdAndUpdate(
+      passenger,
+      { checkedIn: true },
+      { runValidators: true }
+    );
+  }
+
   const newBook = await Booking.findByIdAndUpdate(
     pnr,
     { checkedIn: true },
     { new: true }
   );
-  res.status(200).json({ success: true, data: booking });
+  res.status(200).json({ success: true, data: newBook });
 });
 
 exports.selectSeat = asyncHandler(async (req, res, next) => {
@@ -123,7 +132,7 @@ exports.generateBoardingPass = asyncHandler(async (req, res, next) => {
     _id: req.params.id,
     bagsChecked: true,
     checkedIn: true,
-  }).populate('flight passengers user')
+  }).populate('flight passengers user');
   if (!booking) {
     return new ErrorResponse(
       `Please check if you have completed all previous procedures`

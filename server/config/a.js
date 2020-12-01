@@ -42,3 +42,5 @@
 
 // console.log((myoDate - myDate)/3600000)
 // console.log(453/24)
+var randoms = Array(40).fill(Math.floor(Math.random() * 9))
+console.log(typeof randoms)

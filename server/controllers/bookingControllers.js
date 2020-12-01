@@ -9,7 +9,7 @@ exports.newBooking = asyncHandler(async (req, res, next) => {
   /* 
   req.body = { passengers: [{ name: "JDoe", age: 69, gender: 'Male, type: "Economy" },{ name: "JDoe", age: 69, gender: 'Male', type: 'Business', meal: [] }]}
     */
-
+console.log(req.body)
   // check if flight is available
   const flight = await Flight.findById(req.params.flightId);
   if (!flight || !flight.isAvailable) {

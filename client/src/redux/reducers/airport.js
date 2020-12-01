@@ -8,6 +8,9 @@ export default (state = {}, { type, payload }) => {
     case types.GET_FLIGHTS:
       console.log(payload);
       return payload;
+    case types.GET_FLIGHT:
+      console.log(payload);
+      return payload;
     default:
       return state;
   }
