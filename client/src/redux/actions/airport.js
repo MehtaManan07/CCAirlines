@@ -47,6 +47,21 @@ export const getSingleFlight = (id) => async (dispatch) => {
     console.log(error.response);
   }
 };
+export const getFlights = () => async (dispatch) => {
+  try {
+    const res = await axios.get(
+      `/api/v1/flights/`
+    );
+    console.log(res);
+    dispatch({
+      type: types.GET_FLIGHTS,
+      payload: { flights: res.data.data },
+    });
+  } catch (error) {
+    toast.error(error.response.data.error);
+    console.log(error.response);
+  }
+};
 
 export const newBooking = (passengers,id) => async (dispatch) => {
   try {

@@ -5,6 +5,8 @@ const { protect, authorize } = require('../middlewares/auth');
 
 const router = express.Router();
 const passport = require('passport');
+const advancedResults = require('../utils/filterFeatures');
+const User = require('../models/UserModel');
 
 // there are 13 routes here
 
@@ -30,6 +32,6 @@ router.get('/me', userController.getMe);
 // // All routes from this middlewares are available to logged in admin only
 // router.use(authorize('superuser'));
 
-router.route('/').get(userController.getAllUsers);
+router.route('/').get(advancedResults(User,'bookings'),userController.getAllUsers);
 
 module.exports = router;

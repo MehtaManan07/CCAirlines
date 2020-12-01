@@ -2,10 +2,12 @@ const express = require('express');
 const { authorize, protect } = require('../middlewares/auth');
 const router = express.Router();
 const airportController = require('../controllers/airportControllers');
+const advancedResults = require('../utils/filterFeatures');
+const { Airport } = require('../models/AirportModel');
 
 router
   .route('/')
-  .get(airportController.getAllAirports)
+  .get(advancedResults(Airport),airportController.getAllAirports)
   .post(protect, authorize('superuser'), airportController.newAirport);
 router.get('/gates/:id', airportController.getGates);
 router

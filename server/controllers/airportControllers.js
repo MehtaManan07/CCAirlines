@@ -13,7 +13,9 @@ exports.newAirport = asyncHandler(async (req, res, next) => {
   res.status(201).json({ success: true, data: airport });
 });
 
-exports.getAllAirports = factory.getAll(Airport)
+exports.getAllAirports = asyncHandler(async(req,res,next) => {
+  res.status(200).json(res.advancedResults)
+})
 exports.getAirport = asyncHandler(async (req, res, next) => {
   const airport = await Airport.findById(req.params.id);
   if (!airport) {

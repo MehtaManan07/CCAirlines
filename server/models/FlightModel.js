@@ -102,8 +102,8 @@ flightSchema.pre('remove', async function (next) {
 
 flightSchema.pre(/^find/, function (next) {
   this.populate('crewStaff', 'name role')
-    // .populate('from', 'name')
-    // .populate('to', 'name')
+    .populate('from', 'name')
+    .populate('to', 'name')
     .populate('totalSeats');
   next();
 });

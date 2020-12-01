@@ -5,13 +5,14 @@ const flightController = require('../controllers/flightControllers');
 const { protect, authorize } = require('../middlewares/auth');
 const Flight = require('../models/FlightModel');
 const Seat = require('../models/SeatModel');
+const advancedResults = require('../utils/filterFeatures');
 
 router
   .route('/')
   .post(protect, authorize('superuser'), flightController.createFlight)
-  .get(flightController.getAllFlights);
+  .get(advancedResults(Flight), flightController.getAllFlights);
   
-router.get('/seats/all', flightController.getAllSeats);
+router.get('/seats/all',advancedResults(Seat), flightController.getAllSeats);
 
 router.get('/seat/:id', flightController.getSeatsForFlight);
 router

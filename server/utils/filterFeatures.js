@@ -1,65 +1,93 @@
-class APIFeatures {
-  constructor(query, queryString) {
-    this.query = query;
-    this.queryString = queryString;
-  }
-
-  filter() {
-    const queryObj = { ...this.queryString };
-    const logicalOps = ['in', 'lte', 'gte', 'lt', 'gt'];
-    Object.values(queryObj).map((obj) => {
-      logicalOps.map((operator) => {
-        if (obj[operator] === 'undefined' || obj === 'undefined') {
-          const key = Object.keys(queryObj).find(
-            (key) => queryObj[key] === obj
-          );
-          removeFields.push(key);
-        }
-      });
+const advancedResults = (model, populate) => async (req, res, next) => {
+  let query;
+  // copy req.query
+  const reqQuery = { ...req.query };
+  const logicalOps = ['in', 'lte', 'gte', 'lt', 'gt'];
+  //Fields to exclude;
+  const removeFields = ['select', 'sort', 'page', 'limit'];
+  Object.values(reqQuery).map((obj) => {
+    logicalOps.map((operator) => {
+      if (obj[operator] === 'undefined' || obj === 'undefined') {
+        const key = Object.keys(reqQuery).find(
+          (key) => reqQuery[key] === obj
+        );
+        removeFields.push(key);
+      }
     });
-    const excludedFields = ['page', 'sort', 'limit', 'fields'];
-    excludedFields.forEach((el) => delete queryObj[el]);
+  });
+  console.log(removeFields)
 
-    // 1B) Advanced filtering
-    let queryStr = JSON.stringify(queryObj);
-    queryStr = queryStr.replace(/\b(gte|gt|lte|lt)\b/g, (match) => `$${match}`);
+  // loop over removefields and delete them from reqQuery
+  removeFields.forEach((param) => delete reqQuery[param]);
 
-    this.query = this.query.find(JSON.parse(queryStr));
+  //creating query string
 
-    return this;
+  let queryStr = JSON.stringify(reqQuery);
+
+  //Create operators ($gt, $gte, etc...)
+  queryStr = queryStr.replace(
+    /\b(gt|gte|lt|lte|in)\b/g,
+    (match) => `$${match}`
+  );
+
+  //Finding resource
+  query = model.find(JSON.parse(queryStr));
+
+  // select fields;
+  if (req.query.select) {
+    console.log('reached here')
+    const fields = req.query.select.split(',').join(' ');
+    query = query.select("title")
+    console.log("f: ",fields)
   }
 
-  sort() {
-    if (this.queryString.sort) {
-      console.log('poo')
-      const sortBy = this.queryString.sort.split(',').join(' ');
-      this.query = this.query.sort(sortBy);
-    } else {
-      this.query = this.query.sort('-createdAt');
-    }
-
-    return this;
+  if (populate) {
+    query = query.populate(populate);
   }
 
-  limitFields() {
-    if (this.queryString.fields) {
-      const fields = this.queryString.fields.split(',').join(' ');
-      this.query = this.query.select(fields);
-    } else {
-      this.query = this.query.select('-__v');
-    }
-
-    return this;
+  // sort fields;
+  if (req.query.sort) {
+    console.log("reached")
+    const sortBy = req.query.sort.split(',').join(' ');
+    query = query.sort(sortBy);
+  } else {
+    query = query.sort('-createdAt');
   }
 
-  paginate() {
-    const page = this.queryString.page * 1 || 1;
-    const limit = this.queryString.limit * 1 || 100;
-    const skip = (page - 1) * limit;
+  // Pagination;
+  const page = parseInt(req.query.page, 10) || 1;
+  const limit = parseInt(req.query.limit, 10) || 4;
+  const startIndex = (page - 1) * limit;
+  const endIndex = page * limit;
+  const total = await model.countDocuments(); 
 
-    this.query = this.query.skip(skip).limit(limit);
+  query = query.skip(startIndex).limit(limit);
 
-    return this;
+  // Execution of query
+  const results = await query;
+
+  //pagination result;
+  const pagination = {};
+  if (endIndex < total) {
+    pagination.next = {
+      page: page + 1,
+      limit,
+    };
   }
-}
-module.exports = APIFeatures;
+  if (startIndex > 0) {
+    pagination.prev = {
+      page: page - 1,
+      limit,
+    };
+  }
+  res.advancedResults = {
+    success: true,
+    count: results.length,
+    pagination,
+    data: results,
+  };
+
+  next();
+};
+
+module.exports = advancedResults;

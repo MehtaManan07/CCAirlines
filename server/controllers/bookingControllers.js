@@ -132,4 +132,6 @@ const cancelCharges = (flight, booking) => {
   return (booking.price * booking.passengers.length * kTime) / kPrice;
 };
 
-exports.getAllBookings = factory.getAll(Booking);
+exports.getAllBookings = asyncHandler(async(req,res,next) => {
+  res.status(200).json(res.advancedResults)
+})
