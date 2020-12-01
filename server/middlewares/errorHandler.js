@@ -16,7 +16,8 @@ const errorHandler = (err, req, res, next) => {
   if (err.code === 11000) {
     const value = err.errmsg.match(/(["'])(\\?.)*?\1/)[0];
     console.log('\n' + value)
-    const message = `Duplicate is already taken`;
+    const display = value || 'The field you entered'
+    const message = `${display} is already taken`;
     error = new ErrorResponse(message, 400);
   }
 

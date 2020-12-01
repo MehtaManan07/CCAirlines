@@ -5,7 +5,6 @@ const { protect, authorize } = require('../middlewares/auth');
 
 const router = express.Router();
 const passport = require('passport');
-const User = require('../models/UserModel');
 
 // there are 13 routes here
 
@@ -26,24 +25,11 @@ router.get('/logout', authController.logout);
 // // All routes from this middlewares are available to logged in users only
 router.use(protect);
 
-// router.get('/me', userController.getMe);
-// router.put(
-//   '/updateMe',
-//   userController.uploadPhoto,
-//   userController.resizeImage,
-//   userController.updateMe
-// );
-// router.delete('/deleteMe', userController.deleteMe);
+router.get('/me', userController.getMe);
 
 // // All routes from this middlewares are available to logged in admin only
 // router.use(authorize('superuser'));
 
 router.route('/').get(userController.getAllUsers);
-
-// router
-//   .route('/:id')
-//   .get(userController.getUser)
-//   .put(userController.updateUser)
-//   .delete(userController.deleteUser);
 
 module.exports = router;
