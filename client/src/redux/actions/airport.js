@@ -5,10 +5,9 @@ import { toast } from 'react-toastify';
 export const getAllAirports = () => async (dispatch) => {
   try {
     const res = await axios.get(`/api/v1/airports`);
-
     dispatch({
       type: types.GET_AIRPORTS,
-      payload: { airports: res.data.data },
+      payload: res.data.data,
     });
   } catch (error) {
     toast.error(error.response.data.error);
@@ -24,7 +23,7 @@ export const getAllFlights = (to, from, date) => async (dispatch) => {
     console.log(res);
     dispatch({
       type: types.GET_FLIGHTS,
-      payload: { flights: res.data.data },
+      payload: res.data.data,
     });
   } catch (error) {
     toast.error(error.response.data.error);
@@ -40,7 +39,7 @@ export const getSingleFlight = (id) => async (dispatch) => {
     console.log(res);
     dispatch({
       type: types.GET_FLIGHT,
-      payload: { flight: res.data.data },
+      payload: res.data.data,
     });
   } catch (error) {
     toast.error(error.response.data.error);
@@ -55,8 +54,42 @@ export const getFlights = () => async (dispatch) => {
     console.log(res);
     dispatch({
       type: types.GET_FLIGHTS,
-      payload: { flights: res.data.data },
+      payload: res.data.data,
     });
+  } catch (error) {
+    toast.error(error.response.data.error);
+    console.log(error.response);
+  }
+};
+
+export const webCheck = (values,history) => async (dispatch) => {
+  try {
+    const res = await axios.post(
+      `/api/v1/web_check/${values.pnr}`,{email: values.email}
+    );
+    console.log(res);
+    dispatch({
+      type: types.NEW_BOOKING,
+      payload: { booking: res.data.data },
+    });
+    if(res.data.success) history.push('/seats')
+  } catch (error) {
+    toast.error(error.response.data.error);
+    console.log(error.response);
+  }
+};
+
+export const newFlight= (values,history) => async (dispatch) => {
+  try {
+    const res = await axios.post(
+      `/api/v1/flights/`,values
+    );
+    console.log(res);
+    dispatch({
+      type: types.NEW_FLIGHT,
+      payload: res.data.data ,
+    });
+    if(res.data.success) history.push('/seats')
   } catch (error) {
     toast.error(error.response.data.error);
     console.log(error.response);
@@ -73,7 +106,7 @@ export const newBooking = (passengers,id) => async (dispatch) => {
       type: types.NEW_BOOKING,
       payload: { booking: res.data.data },
     });
-    if(res.data.success) toast.success('Woohoo!! Booking successful')
+    if(res.data.success) toast.success('Woohoo!! Booking successful, invoive is mailed to you')
   } catch (error) {
     toast.error(error.response.data.error);
     console.log(error.response);

@@ -49,7 +49,7 @@ const importData = async () => {
 const deleteData = async () => {
   try {
     // await Airport.deleteMany();
-    await User.deleteMany();
+    // await User.deleteMany();
     await Seat.deleteMany();
     await Booking.deleteMany();
     await Passenger.deleteMany();

@@ -48,6 +48,19 @@ export const logoutUser = () => async (dispatch) => {
   }
 };
 
+export const getStaff = () => async (dispatch) => {
+  try {
+    const { data } = await axios.get('/api/v1/users?role=staff');
+    console.log(data);
+    dispatch({
+      type: types.GET_STAFF,
+      payload: data.data,
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 export const getMe = () => async (dispatch) => {
   try {
     const { data } = await axios.get('/api/v1/users/me');

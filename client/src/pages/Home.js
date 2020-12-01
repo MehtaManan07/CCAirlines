@@ -16,6 +16,7 @@ const Home = () => {
       <FlightForm />
       <br />
       <hr />
+      <h1 className="text-center"> All Airports </h1>
       <br />
       {flights && (
         <table className="table table-striped table-bordered text-center table-hover">

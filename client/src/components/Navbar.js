@@ -48,14 +48,17 @@ const Navbar = () => {
       icon={<UserOutlined />}
       title={`${auth && auth.user.name.split(' ')[0]}`}
     >
-      <Menu.ItemGroup title="something">
+     {auth && auth.user.role === 'superuser' && <Menu.ItemGroup title="Admin stuff">
         <Menu.Item key="setting:3">
           <Link to={`/${auth && auth.user.role}/dashboard`}>Dashboard</Link>
+        </Menu.Item>
+        <Menu.Item key="setting:4">
+          <Link to={`/flights/new`}>New Flight</Link>
         </Menu.Item>
         <Menu.Item icon={<UserSwitchOutlined />} onClick={logout}>
           Logout
         </Menu.Item>
-      </Menu.ItemGroup>
+      </Menu.ItemGroup>}
     </SubMenu>
   );
 
@@ -68,6 +71,9 @@ const Navbar = () => {
     >
       <Menu.Item key="mail" icon={<AppstoreOutlined />}>
         <Link to="/">Home</Link>
+      </Menu.Item>
+      <Menu.Item key="mail" icon={<AppstoreOutlined />}>
+        <Link to="/web_check">Web check-in</Link>
       </Menu.Item>
       {!auth ? guestLinks : authLinks}
     </Menu>

@@ -10,6 +10,8 @@ import Login from './pages/Login';
 import Signup from './pages/Register';
 import Flights from './pages/Flights';
 import Booking from './pages/Booking';
+import WebHome from './pages/WebHome';
+import NewFlight from './pages/NewFlight';
 
 const App = () => {
   const dispatch = useDispatch();
@@ -31,7 +33,9 @@ const App = () => {
         <Route path="/login" exact component={Login} />
         <Route path="/register" exact component={Signup} />
         <Route path="/flights" exact component={Flights} />
+        <Route path="/flights/new" exact component={NewFlight} />
         <Route path="/booking/:id" exact component={Booking} />
+        <Route path="/web_check" exact component={WebHome} />
       </Switch>
     </>
   );
