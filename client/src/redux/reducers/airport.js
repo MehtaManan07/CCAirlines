@@ -13,6 +13,10 @@ export default (state = {}, { type, payload }) => {
       return {...state, flight: payload};
     case types.GET_STAFF:
       return {...state, staff: payload};
+    case types.GET_BOOKING:
+      return {...state, booking: payload};
+    case types.GET_SEATS:
+      return {...state, seats: payload};
     default:
       return state;
   }

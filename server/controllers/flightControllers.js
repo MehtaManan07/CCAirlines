@@ -23,6 +23,7 @@ exports.getFlight = asyncHandler(async (req, res, next) => {
 });
 
 exports.createFlight = asyncHandler(async (req, res, next) => {
+  console.log(req.body)
   /* req.body = { name, to, from, features, arrivalDate, CrewStaff, departureDate, isAvailable, seatsToAdd: { Economy: 50, Business: 25, FirstClass: 15  } } */
 
   const { to, from } = req.body;

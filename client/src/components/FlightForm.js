@@ -35,8 +35,8 @@ const FlightForm = () => {
             >
               <option placeholder="From">From</option>
               {airports &&
-                airports.map((airport) => (
-                  <option value={airport._id} id={airport._id}>
+                airports.map((airport,i) => (
+                  <option value={airport._id} id={i+2}>
                     {airport.name}
                   </option>
                 ))}
@@ -49,8 +49,8 @@ const FlightForm = () => {
             >
               <option placeholder="To">To</option>
               {airports &&
-                airports.map((airport) => (
-                  <option value={airport._id} id={airport._id}>
+                airports.map((airport,i) => (
+                  <option value={airport._id} id={i+7}>
                     {airport.name}
                   </option>
                 ))}

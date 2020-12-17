@@ -9,7 +9,7 @@ exports.newBooking = asyncHandler(async (req, res, next) => {
   /* 
   req.body = { passengers: [{ name: "JDoe", age: 69, gender: 'Male, type: "Economy" },{ name: "JDoe", age: 69, gender: 'Male', type: 'Business', meal: [] }]}
     */
-console.log(req.body)
+  console.log(req.body);
   // check if flight is available
   const flight = await Flight.findById(req.params.flightId);
   if (!flight || !flight.isAvailable) {
@@ -32,7 +32,7 @@ console.log(req.body)
   req.body.price = req.body.price.toFixed(3);
 
   const booking = await Booking.create(req.body);
-
+  console.log(req.body);
   res.status(201).json({ success: true, data: booking });
 });
 
@@ -56,7 +56,7 @@ const seatOps = async (req, passenger, flight, next) => {
   );
 
   const p = calcPrice(flight, passenger.type);
-
+  console.log(p);
   req.body.price = req.body.price + p;
 
   delete passenger.type;
@@ -70,9 +70,9 @@ const calcPrice = (flight, type) => {
   const deptDate = new Date(flight.departureDate);
   const today = new Date();
   const timeDiff = deptDate.getTime() - today.getTime();
-  const kTime = Math.round(timeDiff / (1000 * 60 * 60 * 24)); // total days
+  let kTime = Math.round(timeDiff / (1000 * 60 * 60 * 24)); // total days
   let kPrice = 100;
-
+  kTime === 0 ? (kTime = 0.3) : kTime;
   if (type === 'Business') kPrice = 300;
   else if (type === 'FirstClass') kPrice = 500;
 
@@ -80,7 +80,9 @@ const calcPrice = (flight, type) => {
 };
 
 exports.getBookingById = asyncHandler(async (req, res, next) => {
-  const booking = await Booking.findById(req.params.id);
+  const booking = await Booking.findById(req.params.id).populate(
+    'passengers.seat'
+  );
   if (!booking) {
     return next(new ErrorResponse(`No booking found`, 404));
   }
@@ -132,6 +134,6 @@ const cancelCharges = (flight, booking) => {
   return (booking.price * booking.passengers.length * kTime) / kPrice;
 };
 
-exports.getAllBookings = asyncHandler(async(req,res,next) => {
-  res.status(200).json(res.advancedResults)
-})
+exports.getAllBookings = asyncHandler(async (req, res, next) => {
+  res.status(200).json(res.advancedResults);
+});

@@ -12,6 +12,7 @@ import Flights from './pages/Flights';
 import Booking from './pages/Booking';
 import WebHome from './pages/WebHome';
 import NewFlight from './pages/NewFlight';
+import SeatSelect from './pages/SeatSelect';
 
 const App = () => {
   const dispatch = useDispatch();
@@ -36,6 +37,7 @@ const App = () => {
         <Route path="/flights/new" exact component={NewFlight} />
         <Route path="/booking/:id" exact component={Booking} />
         <Route path="/web_check" exact component={WebHome} />
+        <Route path="/seats/select/:id" exact component={SeatSelect} />
       </Switch>
     </>
   );

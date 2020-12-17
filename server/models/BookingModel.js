@@ -74,10 +74,11 @@ const bookingSchema = new mongoose.Schema({
 
 bookingSchema.pre(/^find/, function (next) {
   this.populate('passengers')
-    .populate('user', 'name phoneNum email')
-    console.log('p')
+    .populate('user', 'name phoneNum email');
+  console.log('p');
   next();
 });
+
 
 bookingSchema.pre('save', function (next) {
   this.numSeats = this.passengers.length;
@@ -87,7 +88,7 @@ bookingSchema.pre('save', function (next) {
 
 bookingSchema.post('save', async function (doc, next) {
   await doc
-    .populate('passengers')
+    .populate('passengers.seat', '')
     .populate('user', 'name phoneNum email')
     .execPopulate();
   await sendPdf(doc);

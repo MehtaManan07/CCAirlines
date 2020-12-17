@@ -28,7 +28,7 @@ const NewFlight = ({ history }) => {
   const submitHandler = async (e) => {
     e.preventDefault();
     setLoading(true)
-    await dispatch(newFlight({...values, ...seatsToAdd},history));
+    await dispatch(newFlight({...values, seatsToAdd},history));
     setLoading(false)
   };
 
@@ -63,8 +63,8 @@ const NewFlight = ({ history }) => {
               >
                 <option placeholder="From">From</option>
                 {airports &&
-                  airports.map((airport) => (
-                    <option value={airport._id} id={airport._id}>
+                  airports.map((airport,i) => (
+                    <option value={airport._id} id={i+10}>
                       {airport.name}
                     </option>
                   ))}
@@ -78,7 +78,7 @@ const NewFlight = ({ history }) => {
                 <option placeholder="To">To</option>
                 {airports &&
                   airports.map((airport, o) => (
-                    <option value={airport._id} id={o}>
+                    <option value={airport._id} id={o+87}>
                       {airport.name}
                     </option>
                   ))}
@@ -131,7 +131,7 @@ const NewFlight = ({ history }) => {
               >
                 {values.featureDisplay &&
                   values.featureDisplay.map((f) => (
-                    <Select.Option value={f}> {f} </Select.Option>
+                    <Select.Option key={f} value={f}> {f} </Select.Option>
                   ))}
               </Select>
             </div>
@@ -145,8 +145,8 @@ const NewFlight = ({ history }) => {
                 required
                 value={seatsToAdd.Economy}
                 onChange={(e) =>
-                  setSeatsToAdd({seatsToAdd,
-                    Economy: e.target.value,
+                  setSeatsToAdd({...seatsToAdd,
+                    Economy: parseInt(e.target.value),
                   })
                 }
               />
@@ -161,7 +161,7 @@ const NewFlight = ({ history }) => {
                 required
                 value={seatsToAdd.Business}
                 onChange={(e) =>
-                  setSeatsToAdd({ ...seatsToAdd, Business: e.target.value })
+                  setSeatsToAdd({ ...seatsToAdd, Business: parseInt(e.target.value) })
                 }
               />
             </div>
@@ -177,7 +177,7 @@ const NewFlight = ({ history }) => {
                 onChange={(e) =>
                   setSeatsToAdd({
                     ...seatsToAdd,
-                    FirstClass: e.target.value,
+                    FirstClass: parseInt(e.target.value),
                   })
                 }
               />
