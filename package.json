@@ -39,5 +39,7 @@
     "slugify": "^1.4.6",
     "validator": "^13.1.17"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "concurrently": "^5.3.0"
+  }
 }

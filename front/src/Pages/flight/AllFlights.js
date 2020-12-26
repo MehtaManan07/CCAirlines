@@ -8,8 +8,9 @@ import Loader from '../../Components/core/Loader';
 
 const AllFlights = (props) => {
   let params = queryString.parse(props.location.search);
+  let passN = props.location.state ? props.location.state.passengers : 1
   const [flights, setFlights] = useState([]);
-  const [passNum, setPassNum] = useState(props.location.state.passengers || 1)
+  const [passNum, setPassNum] = useState(passN)
   const [filters, setFilters] = useState({
     basePrice: '',
     departureString: '',

@@ -24,7 +24,7 @@ const FlightTable = ({ flights, passengers = 1 }) => {
                 <th scope="col">Date</th>
                 <th scope="col">Time</th>
                 <th scope="col">Features</th>
-                <th scope="col">Base Price</th>
+                <th scope="col">Price</th>
                 <th scope="col">{``}</th>
               </tr>
             </thead>
@@ -51,7 +51,7 @@ const FlightTable = ({ flights, passengers = 1 }) => {
                         to={`/booking/${flight._id}/${passengers}`}
                         className="btn btn-success"
                       >
-                        Book now
+                        Book
                       </Link>
                     ) : (
                       <Link
