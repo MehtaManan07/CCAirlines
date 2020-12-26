@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { getAllAirports } from '../../functions/airport';
-import { useHistory } from 'react-router-dom'
+import { useHistory } from 'react-router-dom';
 const FlightSearchForm = () => {
-  const history = useHistory()
+  const history = useHistory();
   const [to, setTo] = useState('');
   const [from, setFrom] = useState('');
   const [departureString, setDepartureString] = useState('');
@@ -82,7 +82,8 @@ const FlightSearchForm = () => {
         <button
           onClick={() =>
             history.push(
-              `/flights/all?to=${to}&from=${from}&departureString=${departureString}`
+              `/flights/all?to=${to}&from=${from}&departureString=${departureString}`,
+              { passengers: passengers || 1 }
             )
           }
           className="btn btn-outline-success"

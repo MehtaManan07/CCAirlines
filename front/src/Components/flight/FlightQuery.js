@@ -3,7 +3,15 @@ import Select from 'react-select';
 import { Form, Col, Row, Button } from 'react-bootstrap';
 import Checkbox from './Checkbox';
 
-const FlightQuery = ({ filters, setFilters, submitHandler, checkValues, setCheckValues }) => {
+const FlightQuery = ({
+  filters,
+  setFilters,
+  submitHandler,
+  checkValues,
+  setCheckValues,
+  passNum,
+  setPassNum,
+}) => {
   const priceOptions = [
     { value: '1000000', label: 'Any' },
     { value: '10000', label: 'Rs 10000' },
@@ -22,7 +30,24 @@ const FlightQuery = ({ filters, setFilters, submitHandler, checkValues, setCheck
 
   return (
     <div className="d-flex flex-column pl-3 pt-3 pr-3">
-      <h4 className='text-center'> Filter </h4>
+      <div className="p-2">
+        <Form>
+          <Form.Group as={Row}>
+            <Form.Label column sm="1">
+              Passengers
+            </Form.Label>
+            <Col sm="11">
+              <input
+                type="number"
+                className="form-control"
+                value={passNum}
+                onChange={(e) => setPassNum(e.target.value)}
+              />
+            </Col>
+          </Form.Group>
+        </Form>
+      </div>
+      <h4 className="text-center"> Filter </h4>
       <div className="p-2">
         <Form onSubmit={submitHandler}>
           <Form.Group as={Row}>
@@ -73,13 +98,17 @@ const FlightQuery = ({ filters, setFilters, submitHandler, checkValues, setCheck
               />
             </Col>
           </Form.Group>
-          <h4 className='text-center'> Sort </h4>
+          <h4 className="text-center"> Sort </h4>
           <Checkbox checkValues={checkValues} setCheckValues={setCheckValues} />
           <div className="text-center">
-
-          <Button type="submit" block className='mt-2' variant="outline-primary">
-            Search Flights
-          </Button>
+            <Button
+              type="submit"
+              block
+              className="mt-2"
+              variant="outline-primary"
+            >
+              Search Flights
+            </Button>
           </div>
         </Form>
       </div>

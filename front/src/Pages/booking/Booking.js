@@ -11,7 +11,7 @@ import Loader from '../../Components/core/Loader';
 const Booking = ({ match }) => {
   const history = useHistory();
   const dispatch = useDispatch();
-  const passengers = parseInt(match.params.passengers);
+  const passengers = useState(match.params.passengers);
   const [flight, setFlight] = useState({});
   const [travellers, setTravellers] = useState([
     { name: '', age: 1, gender: 'lol' },

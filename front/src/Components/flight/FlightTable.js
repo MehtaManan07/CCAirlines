@@ -36,12 +36,10 @@ const FlightTable = ({ flights, passengers = 1 }) => {
                   <td>
                     {flight.from.city} - {flight.to.city}
                   </td>
+                  <td>{moment.utc(flight.departureDate).format('D-M-YY')}</td>
                   <td>
-                    {moment.utc(flight.departureDate).format('D-M-YY')}
-                  </td>
-                  <td>
-                    {moment.utc(flight.departureDate).format('HH:mm A')}{' '}
-                    - {moment.utc(flight.arrivalDate).format('HH:mm A')}
+                    {moment.utc(flight.departureDate).format('HH:mm A')} -{' '}
+                    {moment.utc(flight.arrivalDate).format('HH:mm A')}
                   </td>
                   <td>{flight.features.join(',')}</td>
                   <td>
@@ -81,10 +79,13 @@ const FlightTable = ({ flights, passengers = 1 }) => {
               Go back
             </span>
             <span
-              onClick={() => window.location.reload()}
+              onClick={() => {
+                history.push('/flights/all');
+                window.location.reload();
+              }}
               style={{ cursor: 'pointer', color: 'blue' }}
             >
-              Refresh
+              View All Flights
             </span>
           </div>
         </>

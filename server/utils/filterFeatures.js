@@ -42,6 +42,7 @@ const advancedResults = (model, populate) => async (req, res, next) => {
   })
 
   //Finding resources
+  console.log({ finalQuery })
   query = model.find(finalQuery);
 
   // select fields;

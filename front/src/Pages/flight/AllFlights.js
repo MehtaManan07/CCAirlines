@@ -7,7 +7,9 @@ import FlightQuery from '../../Components/flight/FlightQuery';
 import Loader from '../../Components/core/Loader';
 
 const AllFlights = (props) => {
+  let params = queryString.parse(props.location.search);
   const [flights, setFlights] = useState([]);
+  const [passNum, setPassNum] = useState(props.location.state.passengers || 1)
   const [filters, setFilters] = useState({
     basePrice: '',
     departureString: '',
@@ -20,7 +22,6 @@ const AllFlights = (props) => {
     { key: 'arrivalDate', value: 'Early Arrival', check: false },
     { key: 'duration', value: 'Duration', check: false },
   ]);
-  let params = queryString.parse(props.location.search);
 
   const getFlights = (str) => {
     getAllFlights(params,str).then((res) => {
@@ -68,6 +69,8 @@ const AllFlights = (props) => {
             setFilters={setFilters}
             checkValues={checkValues}
             setCheckValues={setCheckValues}
+            passNum={passNum}
+            setPassNum={setPassNum}
           />
         </div>
         <div
@@ -78,7 +81,7 @@ const AllFlights = (props) => {
             <FlightTable
               flights={flights}
               loading={loading}
-              passengers={params.passengers}
+              passengers={passNum}
             />
           ) : (
             <Loader text="Fetching" />
