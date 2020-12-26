@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import Layout from '../../Components/core/Layout';
 import { toast } from 'react-toastify';
 import { confirmSeat, mySeatsCalc } from '../../functions/webCheck';
-// import { getBooking } from '../../functions/booking';
 import Loader from '../../Components/core/Loader';
 import Pusher from 'pusher-js';
 import SeatLayout from '../../Components/webCheck/SeatLayout';
@@ -13,6 +12,7 @@ const WebSeatSelect = (props) => {
   const [seatId, setSeatId] = useState('')
   const [loading, setLoading] = useState(true);
   const [seats, setSeats] = useState([]);
+  const [passG, setPassG] = useState(passenger)
 
   const clickHandler = (seat, png) => {
     if (!seat) return;
@@ -27,10 +27,11 @@ const WebSeatSelect = (props) => {
       confirmSeat(png._id, seat._id, props.match.params.bookId).then((res) => {
         console.log(res);
         if (res.success) {
+          setPassG(res.data.pass1)
           // props.history.push(`/web/seat_select/${props.match.params.bookId}`);
           toast
             .success
-            // `${png.name}'s updated seat is ${res.data.pass1.seat.seatName}`
+            `${png.name}'s updated seat is ${res.data.pass1.seat.seatName}`
             ();
         } else toast.error(res.data.error);
       });
@@ -57,6 +58,7 @@ const WebSeatSelect = (props) => {
     console.log('yo');
     fetchFlight(props.match.params.bookId);
   }, [seatId]);
+
   useEffect(() => {
     let pusher = new Pusher('ea0ef1441bbd85bef8fb', {
       cluster: 'ap2',
@@ -80,7 +82,7 @@ const WebSeatSelect = (props) => {
       {!loading ? (
         <SeatLayout
           seats={seats}
-          passenger={passenger}
+          passenger={passG}
           clickHandler={clickHandler}
         />
       ) : (

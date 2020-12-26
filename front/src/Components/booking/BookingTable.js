@@ -25,7 +25,7 @@ const BookingTable = ({ user, bookings, admin = false }) => {
           })
           .catch((err) => console.log(err));
       }
-      toast.error(res.data.error);
+      toast.error(res.statusText);
     });
   };
   return (

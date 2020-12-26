@@ -9,7 +9,9 @@ module.exports = class Email {
   }
 
   newTransport() {
+    console.log('1');
     if (process.env.NODE_ENV === 'production') {
+      console.log('2');
       //sendgrid
       const transporter = nodemailer.createTransport({
         service: 'Sendgrid',
@@ -20,20 +22,13 @@ module.exports = class Email {
       });
       return transporter;
     }
-    const transporter = nodemailer.createTransport({
-      host: process.env.EMAIL_HOST,
-      port: process.env.EMAIL_PORT,
-      auth: {
-        user: process.env.EMAIL_USERNAME,
-        pass: process.env.EMAIL_PASSWORD,
-      },
-    });
-    return transporter;
   }
 
   async send(_id, subject) {
+    console.log('3')
     // 3) Actually send the email
     try {
+      console.log('4')
       await this.newTransport().sendMail({
         from: this.from,
         to: this.to,
@@ -46,11 +41,13 @@ module.exports = class Email {
         ],
       });
     } catch (error) {
+      console.log('6 yuk')
       console.log(error);
     }
   }
 
   async sendBooking(id) {
+    console.log('7')
     await this.send(id, 'Ticket Details');
   }
 };

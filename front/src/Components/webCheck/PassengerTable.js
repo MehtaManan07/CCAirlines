@@ -1,7 +1,7 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
 
-const PassengerTable = ({ booking }) => {
+const PassengerTable = ({ booking, final = false }) => {
   const history = useHistory();
   return (
     <table className="table table-striped table-bordered text-center table-hover">
@@ -11,7 +11,7 @@ const PassengerTable = ({ booking }) => {
           <td>Passenger Name</td>
           <td>Seat No</td>
           <td>Class</td>
-          <td>Edit</td>
+         {!final && <td>Edit</td>}
         </tr>
       </thead>
       <tbody>
@@ -21,17 +21,18 @@ const PassengerTable = ({ booking }) => {
             <td>{passenger.name}</td>
             <td>{passenger.seat.seatName}</td>
             <td>{passenger.seat.type}</td>
-            <td>
+           {!final && <td>
               <button
-                // disabled={passenger.boarded}
+                disabled={passenger.boarded}
                 onClick={() =>
                   history.push(`/web/seats/change/${booking.flight._id}`, { passenger, booking })
                 }
                 className="btn btn-primary"
+                style={{ cursor: !passenger.boarded ? 'pointer' : 'no-drop' }}
               >
                 {passenger.boarded ? 'Boarded' : 'Edit Seat'}
               </button>
-            </td>
+            </td>}
           </tr>
         ))}
       </tbody>

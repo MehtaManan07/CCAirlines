@@ -12,7 +12,7 @@ const WebLuggage = ({ match, history }) => {
     baggageCheck(id, weight).then((res) => {
       if (res.success) {
         let price = weight > 15 ? (weight - 15) * 200 : 0;
-        toast.info(`Rs ${price} are charged for luggage`);
+        toast.info(`Rs ${price} extra are charged for luggage`);
         history.push(`/web/boarding-pass/${id}`);
       } else {
         toast.error(res.data.error)

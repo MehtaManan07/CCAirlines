@@ -3,6 +3,7 @@ const ErrorResponse = require('../middlewares/ErrorResponse');
 const { Booking, Passenger } = require('../models/BookingModel');
 const Seat = require('../models/SeatModel');
 const User = require('../models/UserModel');
+const moment = require('moment');
 // 1. Check in through email and pnr;
 // 2. Option for selection of seats
 // 3. Check individual passenger in
@@ -29,13 +30,16 @@ exports.chechkIn = asyncHandler(async (req, res, next) => {
     );
   }
   let { departureDate } = booking.flight;
-  const today = new Date();
+  let today = new Date();
+  today = moment.utc(today).local().format()
 
   if ((departureDate - today) / 3600000 < 0.25) {
     return next(new ErrorResponse(`Sorry the counter is closed`, 400));
   }
 
   if ((departureDate - today) / 3600000 > 2) {
+    console.log({ departureDate, today })
+    console.log((departureDate - today) / 3600000 )
     return next(
       new ErrorResponse(
         `You can noly check in before 2 hours of departure`,

@@ -87,6 +87,7 @@ const Booking = ({ match }) => {
           />
           {travellers.map((p, i) => (
             <PassengerForm
+            key={i+32}
               p={p}
               i={i}
               handleChange={handleChange}

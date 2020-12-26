@@ -8,7 +8,7 @@ const PassengerForm = ({ p,i, handleChange, passengers, onAdd }) => {
             >
               <div className="form-group">{i + 1}</div>
               <div className="form-group">
-                <label for="name">Name:</label>
+                <label htmlFor="name">Name:</label>
                 <input
                   required
                   value={p.name}
@@ -20,7 +20,7 @@ const PassengerForm = ({ p,i, handleChange, passengers, onAdd }) => {
                 />
               </div>
               <div className="form-group">
-                <label for="age">Age:</label>
+                <label htmlFor="age">Age:</label>
                 <input
                   required
                   value={p.age}

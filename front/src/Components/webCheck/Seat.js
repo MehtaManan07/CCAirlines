@@ -15,10 +15,10 @@ const Seat = ({ bgcolor, seat, passenger, clickHandler }) => {
         borderRadius: 50,
         color: 'white',
         background: seat
-          ? seat._id === passenger.seat._id
-            ? '#4682b4'
-            : seat.boarded
+          ? seat.boarded && seat._id !== passenger.seat._id
             ? '#800080'
+            : seat._id === passenger.seat._id
+            ? '#4682b4'
             : '#62a904'
           : bgcolor,
       }}
