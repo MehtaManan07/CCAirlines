@@ -2,7 +2,6 @@ const nodemailer = require('nodemailer');
 
 module.exports = class Email {
   constructor(user, url) {
-    console.log(user.email)
     this.to = user.email;
     this.firstName = user.name.split(' ')[0];
     this.url = url;
@@ -35,7 +34,6 @@ module.exports = class Email {
   async send(_id, subject) {
     // 3) Actually send the email
     try {
-      console.log('yus2');
       await this.newTransport().sendMail({
         from: this.from,
         to: this.to,
@@ -47,16 +45,12 @@ module.exports = class Email {
           },
         ],
       });
-      console.log('yo');
     } catch (error) {
-      console.log('shit\n');
       console.log(error);
     }
   }
 
   async sendBooking(id) {
-    console.log('yus3');
     await this.send(id, 'Ticket Details');
-    console.log('yus4');
   }
 };

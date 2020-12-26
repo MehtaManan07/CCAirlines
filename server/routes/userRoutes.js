@@ -19,19 +19,21 @@ router.get(
   '/google',
   passport.authenticate('google', { scope: ['profile', 'email'] })
 );
-
 router.get('/google/callback', passport.authenticate('google'), (req, res) => {
+console.log(req.originalUrl + '\n')
   authController.sendTokenResponse(200, req.user, res);
 });
 router.get('/logout', authController.logout);
+
 // // All routes from this middlewares are available to logged in users only
 router.use(protect);
-
 router.get('/me', userController.getMe);
 
 // // All routes from this middlewares are available to logged in admin only
 // router.use(authorize('superuser'));
 
-router.route('/').get(advancedResults(User,'bookings'),userController.getAllUsers);
+router
+  .route('/')
+  .get(advancedResults(User, 'bookings'), userController.getAllUsers);
 
 module.exports = router;

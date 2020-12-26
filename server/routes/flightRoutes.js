@@ -14,6 +14,7 @@ router
   
 router.get('/seats/all',advancedResults(Seat), flightController.getAllSeats);
 
+router.get('/single/seat/:id', flightController.getSingleSeat);
 router.get('/seat/:id', flightController.getSeatsForFlight);
 router
   .route('/:id')

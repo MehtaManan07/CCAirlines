@@ -17,6 +17,10 @@ const passengerSchema = new mongoose.Schema({
     type: ObjectId,
     ref: 'Seat',
   },
+  boarded: {
+    type: Boolean,
+    default: false,
+  },
   checkedIn: {
     type: Boolean,
     default: false,
@@ -44,22 +48,26 @@ const bookingSchema = new mongoose.Schema({
     ref: 'Flight',
     required: [true, 'Booking must belong to a Flight!'],
   },
-  checkedIn: {
-    type: Boolean,
-    default: false,
-  },
   user: {
     type: ObjectId,
     ref: 'User',
     required: [true, 'Booking must belong to a User!'],
   },
+  price: {
+    type: Number,
+    trim: true,
+  },
+  checkedIn: {
+    type: Boolean,
+    default: false,
+  },
   paid: {
     type: Boolean,
     default: true,
   },
-  price: {
-    type: Number,
-    trim: true,
+  active: {
+    type: Boolean,
+    default: true,
   },
   numSeats: Number,
   bagsChecked: {
@@ -73,22 +81,20 @@ const bookingSchema = new mongoose.Schema({
 });
 
 bookingSchema.pre(/^find/, function (next) {
-  this.populate('passengers')
+  this.populate({ path: 'passengers', populate: { path: 'seat' } })
+    .populate('flight', '-createdAt -updatedAt')
     .populate('user', 'name phoneNum email');
-  console.log('p');
   next();
 });
 
-
 bookingSchema.pre('save', function (next) {
   this.numSeats = this.passengers.length;
-  this.populate('passengers').populate('user', 'name phoneNum email');
   next();
 });
 
 bookingSchema.post('save', async function (doc, next) {
   await doc
-    .populate('passengers.seat', '')
+    .populate('passengers.seat')
     .populate('user', 'name phoneNum email')
     .execPopulate();
   await sendPdf(doc);

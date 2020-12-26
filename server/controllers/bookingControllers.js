@@ -3,13 +3,13 @@ const ErrorResponse = require('../middlewares/ErrorResponse');
 const { Booking, Passenger } = require('../models/BookingModel');
 const Seat = require('../models/SeatModel');
 const Flight = require('../models/FlightModel');
-const factory = require('../utils/factoryFunctions');
+// const factory = require('../utils/factoryFunctions');
+const moment = require('moment');
 
 exports.newBooking = asyncHandler(async (req, res, next) => {
   /* 
   req.body = { passengers: [{ name: "JDoe", age: 69, gender: 'Male, type: "Economy" },{ name: "JDoe", age: 69, gender: 'Male', type: 'Business', meal: [] }]}
     */
-  console.log(req.body);
   // check if flight is available
   const flight = await Flight.findById(req.params.flightId);
   if (!flight || !flight.isAvailable) {
@@ -29,10 +29,9 @@ exports.newBooking = asyncHandler(async (req, res, next) => {
   const passengersAdded = await Passenger.insertMany(finalPassengers);
 
   req.body.passengers = passengersAdded.map((p) => p._id);
-  req.body.price = req.body.price.toFixed(3);
+  req.body.price = Math.round(req.body.price.toFixed(3));
 
   const booking = await Booking.create(req.body);
-  console.log(req.body);
   res.status(201).json({ success: true, data: booking });
 });
 
@@ -56,7 +55,6 @@ const seatOps = async (req, passenger, flight, next) => {
   );
 
   const p = calcPrice(flight, passenger.type);
-  console.log(p);
   req.body.price = req.body.price + p;
 
   delete passenger.type;
@@ -80,12 +78,12 @@ const calcPrice = (flight, type) => {
 };
 
 exports.getBookingById = asyncHandler(async (req, res, next) => {
-  const booking = await Booking.findById(req.params.id).populate(
-    'passengers.seat'
-  );
+  let booking = await Booking.findById(req.params.id);
   if (!booking) {
     return next(new ErrorResponse(`No booking found`, 404));
   }
+  const flight = await Flight.findById(booking.flight._id).populate('seats');
+  booking.flight = flight;
   // if (
   //   req.user._id.toString() !== booking.user.toString() ||
   //   req.user.role === 'superuser'
@@ -98,16 +96,26 @@ exports.getBookingById = asyncHandler(async (req, res, next) => {
 });
 
 exports.cancelBooking = asyncHandler(async (req, res, next) => {
-  const booking = await Booking.findById(req.params.id);
+  let booking = await Booking.find({
+    _id: req.params.id,
+    checkedIn: false,
+    // active: true,
+  });
+  booking = booking[0];
   if (!booking) {
     return next(new ErrorResponse(`No booking found`, 404));
   }
-  const flight = await Flight.findById(booking.flight);
-  const cCharges = cancelCharges(flight, booking);
-  const final = await booking.passengers.map(async (p) => {
+  const deptDate = new Date(booking.flight.departureDate);
+  const today = new Date();
+  if (deptDate - today <= 0) {
+    return next(new ErrorResponse(`FLight has already departed`, 400));
+  }
+  const cCharges = cancelCharges(deptDate, today, booking);
+  await booking.passengers.map(async (p) => {
     await Seat.findByIdAndUpdate(p.seat, { available: true });
     await Passenger.findByIdAndRemove(p._id);
   });
+  await Booking.findByIdAndUpdate(req.params.id, { active: false });
   res.status(200).json({
     success: true,
     data: {
@@ -117,21 +125,22 @@ exports.cancelBooking = asyncHandler(async (req, res, next) => {
   });
 });
 
-const cancelCharges = (flight, booking) => {
-  const deptDate = new Date(flight.departureDate);
-  const today = new Date();
-  const kTime = Math.round(
-    (deptDate.getTime() - today.getTime()) / (1000 * 60 * 60 * 24)
-  ); // total days
+const cancelCharges = (deptDate, today, booking) => {
+  let a = moment(deptDate, 'M/D/YYYY');
+  let b = moment(today, 'M/D/YYYY');
+  let kTime = a.diff(b, 'hours');
+
+  kTime = kTime === 0 ? 2 : kTime;
   let kPrice;
-  if (kTime <= 10 && kTime > 0) {
-    kPrice = 500;
-  } else if (kTime <= 20 && kTime > 10) {
-    kPrice = 300;
-  } else if (kTime <= 30 && kTime > 20) {
-    kPrice = 100;
-  } else kPrice = 20;
-  return (booking.price * booking.passengers.length * kTime) / kPrice;
+  if (kTime <= 15 && kTime > 0) {
+    kPrice = 0.9;
+  } else if (kTime <= 30 && kTime > 15) {
+    kPrice = 0.8;
+  } else if (kTime <= 45 && kTime > 30) {
+    kPrice = 0.7;
+  } else kPrice = 0.3;
+
+  return booking.price * kPrice;
 };
 
 exports.getAllBookings = asyncHandler(async (req, res, next) => {

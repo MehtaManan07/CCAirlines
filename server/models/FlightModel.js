@@ -8,13 +8,14 @@ const flightSchema = new mongoose.Schema(
   {
     name: {
       type: String,
-      required: [true, 'A tour must have a name'],
+      required: [true, 'A flight must have a name'],
+      min: [5, 'Name must be at least 5 characters long' ],
       unique: true,
       trim: true,
-      validate: [validator.isAlpha, 'Tour name must only contain characters'],
+      // validate: [validator.isAlpha, 'Tour name must only contain characters'],
     },
-    from: { type: ObjectId, ref: 'Airport' },
-    to: { type: ObjectId, ref: 'Airport' },
+    from: { type: ObjectId, ref: 'Airport', required: [true, 'Flight must have a departure airport'] },
+    to: { type: ObjectId, ref: 'Airport', required: [true, 'Flight must have a arrival airport'] },
     features: [String],
     arrivalDate: {
       //up
@@ -52,7 +53,7 @@ const flightSchema = new mongoose.Schema(
       required: [true, 'A tour must have a price'],
       trim: true,
     },
-    // totalSeats: Number,
+    totalSeats: Number,
     slug: String,
   },
   {
@@ -62,13 +63,6 @@ const flightSchema = new mongoose.Schema(
   }
 );
 
-// Virtual populate
-flightSchema.virtual('totalSeats', {
-  ref: 'Seat',
-  foreignField: 'flight',
-  localField: '_id',
-  count: true,
-});
 // Virtual populate
 flightSchema.virtual('seats', {
   ref: 'Seat',
@@ -102,9 +96,8 @@ flightSchema.pre('remove', async function (next) {
 
 flightSchema.pre(/^find/, function (next) {
   this.populate('crewStaff', 'name role')
-    .populate('from', 'name')
-    .populate('to', 'name')
-    .populate('totalSeats');
+    .populate('from', 'name city')
+    .populate('to', 'name city')
   next();
 });
 

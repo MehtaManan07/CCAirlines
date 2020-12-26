@@ -3,15 +3,15 @@ const User = require('../models/UserModel');
 const GStrategy = require('passport-google-oauth20').Strategy;
 const crypto = require('crypto');
 
-passport.serializeUser((user,done) => {
-  done(null,user.id);
-})
+passport.serializeUser((user, done) => {
+  done(null, user.id);
+});
 
-passport.deserializeUser((id,done) => {
+passport.deserializeUser((id, done) => {
   User.findById(id).then((user) => {
-    done(null,user)
-  })
-})
+    done(null, user);
+  });
+});
 
 passport.use(
   new GStrategy(
@@ -19,7 +19,7 @@ passport.use(
       clientID: process.env.GOOGLE_CLIENT,
       clientSecret: process.env.GOOGLE_SECRET,
       callbackURL: '/api/v1/users/google/callback',
-      proxy: true
+      proxy: true,
     },
     async (accessToken, refreshToken, profile, done) => {
       const user = await User.findOne({ email: profile._json.email });
@@ -29,11 +29,11 @@ passport.use(
           name: profile._json.name,
           email: profile._json.email,
           photo: profile._json.picture,
-          password: crypto.randomBytes(8).toString('hex')
+          password: crypto.randomBytes(8).toString('hex'),
         });
-        done(null,newUser)
+        done(null, newUser);
       }
-      done(null,user)
+      done(null, user);
     }
   )
 );
