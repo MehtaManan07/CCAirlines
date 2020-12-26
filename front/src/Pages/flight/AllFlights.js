@@ -5,16 +5,20 @@ import { getAllFlights } from '../../functions/flight';
 import queryString from 'query-string';
 import FlightQuery from '../../Components/flight/FlightQuery';
 import Loader from '../../Components/core/Loader';
+import { getAllAirports } from '../../functions/airport';
 
 const AllFlights = (props) => {
   let params = queryString.parse(props.location.search);
   let passN = props.location.state ? props.location.state.passengers : 1
   const [flights, setFlights] = useState([]);
+  const [airports, setAirports] = useState(null)
   const [passNum, setPassNum] = useState(passN)
   const [filters, setFilters] = useState({
     basePrice: '',
     departureString: '',
     features: [],
+    from: '',
+    to: ''
   });
   const [loading, setLoading] = useState(true);
   const [checkValues, setCheckValues] = useState([
@@ -26,11 +30,17 @@ const AllFlights = (props) => {
 
   const getFlights = (str) => {
     getAllFlights(params,str).then((res) => {
-      console.log(res);
       setFlights(res);
       setLoading(false);
     });
   };
+
+  const getAirports = () => {
+    getAllAirports().then((res) => {
+      setAirports(res);
+      setLoading(false);
+    });
+  }
 
   const submitHandler = (e) => {
     setLoading(true);
@@ -44,6 +54,8 @@ const AllFlights = (props) => {
       features: { opt: 'all', value: filters.features },
       basePrice: { opt: 'lte', value: filters.basePrice },
       departureString: filters.departureString,
+      to: filters.to,
+      from: filters.from,
     };
     params = Object.assign(params, myObj);
     getFlights(str);
@@ -51,6 +63,7 @@ const AllFlights = (props) => {
 
   useEffect(() => {
     getFlights();
+    getAirports()
     // eslint-disable-next-line
   }, []);
   return (
@@ -71,6 +84,7 @@ const AllFlights = (props) => {
             checkValues={checkValues}
             setCheckValues={setCheckValues}
             passNum={passNum}
+            airports={airports}
             setPassNum={setPassNum}
           />
         </div>

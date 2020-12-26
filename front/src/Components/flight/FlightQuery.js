@@ -6,6 +6,7 @@ import Checkbox from './Checkbox';
 const FlightQuery = ({
   filters,
   setFilters,
+  airports,
   submitHandler,
   checkValues,
   setCheckValues,
@@ -29,7 +30,7 @@ const FlightQuery = ({
   ];
 
   return (
-    <div className="d-flex flex-column pl-3 pt-3 pr-3">
+    <div className="d-flex flex-column ">
       <div className="p-2">
         <Form>
           <Form.Group as={Row}>
@@ -67,7 +68,49 @@ const FlightQuery = ({
           </Form.Group>
           <Form.Group as={Row}>
             <Form.Label column sm="1">
-              Dates
+              To
+            </Form.Label>
+            <Col sm="11">
+              <select
+                value={filters.to}
+                onChange={(e) => setFilters({ ...filters, to: e.target.value })}
+                className="basic-multi-select form-control"
+              >
+                <option disabled value=""></option>
+                {airports &&
+                  airports.map((a, i) => (
+                    <option value={a._id} key={i}>
+                      {a.city}
+                    </option>
+                  ))}
+              </select>
+            </Col>
+          </Form.Group>
+          <Form.Group as={Row}>
+            <Form.Label column sm="1">
+              From
+            </Form.Label>
+            <Col sm="11">
+              <select
+                value={filters.from}
+                onChange={(e) =>
+                  setFilters({ ...filters, from: e.target.value })
+                }
+                className="basic-multi-select form-control"
+              >
+                <option disabled value=""></option>
+                {airports &&
+                  airports.map((a, i) => (
+                    <option value={a._id} key={i}>
+                      {a.city}
+                    </option>
+                  ))}
+              </select>
+            </Col>
+          </Form.Group>
+          <Form.Group as={Row}>
+            <Form.Label column sm="1">
+              Date
             </Form.Label>
             <Col sm="11">
               <Form.Control

@@ -110,6 +110,7 @@ p {
 
 .myTestClass > * {
   color:rgb(149, 99, 207) !important;
+  padding: 5 5 5 5;
   margin: 0 20px;
 }
 

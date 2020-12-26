@@ -12,8 +12,8 @@ const FlightModal = ({ flight, show, onHide }) => {
       centered
     >
       <Modal.Header closeButton>
-        <Modal.Title id="contained-modal-title-vcenter">
-          Flight Details
+        <Modal.Title id="contained-modal-title-vcenter" className='d-flex justify-content-center'>
+          <div className="">Flight Details</div>
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
@@ -49,25 +49,32 @@ const FlightModal = ({ flight, show, onHide }) => {
               </tr>
               <tr>
                 <th scope="row">5</th>
+                <td>Departure Date</td>
+                <td>
+                  {moment.utc(flight.departureDate).local().format('DD-MM-YYYY')}
+                </td>
+              </tr>
+              <tr>
+                <th scope="row">6</th>
                 <td>Departure Time</td>
                 <td>
                   {moment.utc(flight.departureDate).local().format('HH:mm A')}
                 </td>
               </tr>
               <tr>
-                <th scope="row">6</th>
+                <th scope="row">7</th>
                 <td>Arrival Time</td>
                 <td>
                   {moment.utc(flight.arrivalDate).local().format('HH:mm A')}{' '}
                 </td>
               </tr>
               <tr>
-                <th scope="row">7</th>
+                <th scope="row">8</th>
                 <td>Duration</td>
                 <td>{Math.round(flight.duration)} hours</td>
               </tr>
               <tr>
-                <th scope="row">8</th>
+                <th scope="row">9</th>
                 <td>Available Seats</td>
                 <td>{flight.totalSeats - flight.bookedSeats.length}</td>
               </tr>
