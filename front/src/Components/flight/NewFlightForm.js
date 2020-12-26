@@ -205,7 +205,7 @@ const FlightNew = ({
             </Form.Group>
             <Form.Group>
             <Form.Label>
-            For Economy Class
+            For First Class
             </Form.Label>
               <Form.Control
                 type="number"

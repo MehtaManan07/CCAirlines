@@ -31,8 +31,8 @@ exports.getFlight = asyncHandler(async (req, res, next) => {
 
 exports.createFlight = asyncHandler(async (req, res, next) => {
   /* req.body = { name, to, from, features, arrivalDate, CrewStaff, departureDate, isAvailable, seatsToAdd: { Economy: 50, Business: 25, FirstClass: 15  } } */
-
   const { to, from } = req.body;
+  console.log(req.body);
 
   // check for negative duration
   let duration =
@@ -86,6 +86,7 @@ exports.createFlight = asyncHandler(async (req, res, next) => {
   }
   newFlight.totalSeats = seatsAdded.length;
   await newFlight.save();
+  console.log(newFlight);
   res.status(201).json({
     success: true,
     data: newFlight,
@@ -120,6 +121,7 @@ exports.getSeatsForFlight = asyncHandler(async (req, res, next) => {
   }
   res.json({ success: true, data: seats });
 });
+
 exports.getSingleSeat = asyncHandler(async (req, res, next) => {
   const { id } = req.params;
   const seat = await Seat.findOne({ _id: id });
@@ -139,10 +141,12 @@ db.once('open', () => {
   const flightCollection = db.collection('seats');
   const changeStream = flightCollection.watch();
   changeStream.on('change', async (change) => {
-    console.log('change -> \n');
-    let seat = await Seat.findById(change.documentKey._id);
-    pusher.trigger('my-channel', 'my-event', {
-      id: seat._id
-    });
+    if (change.operationType === 'update') {
+      console.log('change -> \n');
+      let seat = await Seat.findById(change.documentKey._id);
+      pusher.trigger('my-channel', 'my-event', {
+        id: seat._id,
+      });
+    }
   });
 });

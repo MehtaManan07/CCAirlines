@@ -4,6 +4,13 @@ import moment from 'moment';
 
 const FlightTable = ({ flights, passengers = 1 }) => {
   const history = useHistory();
+  // const calcDate = (d) => {
+  //   if (d.splice(-1) !== 'Z') {
+  //     return d;
+  //   } else {
+  //     return moment.utc(flight.departureDate).format('D-M-YY');
+  //   }
+  // };
   return (
     <div>
       {flights.length > 0 ? (
@@ -30,11 +37,11 @@ const FlightTable = ({ flights, passengers = 1 }) => {
                     {flight.from.city} - {flight.to.city}
                   </td>
                   <td>
-                    {moment.utc(flight.departureDate).local().format('D-M-YY')}
+                    {moment.utc(flight.departureDate).format('D-M-YY')}
                   </td>
                   <td>
-                    {moment.utc(flight.departureDate).local().format('HH:mm A')}{' '}
-                    - {moment.utc(flight.arrivalDate).local().format('HH:mm A')}
+                    {moment.utc(flight.departureDate).format('HH:mm A')}{' '}
+                    - {moment.utc(flight.arrivalDate).format('HH:mm A')}
                   </td>
                   <td>{flight.features.join(',')}</td>
                   <td>
@@ -66,10 +73,17 @@ const FlightTable = ({ flights, passengers = 1 }) => {
         <>
           <h3 className="text-center">NO FLIGHTS FOUND</h3> <br />
           <div className="text-center">
-            <span onClick={() => history.goBack()} style={{ cursor: 'pointer', color: 'blue' }} className="mr-3">
+            <span
+              onClick={() => history.goBack()}
+              style={{ cursor: 'pointer', color: 'blue' }}
+              className="mr-3"
+            >
               Go back
             </span>
-            <span onClick={() => window.location.reload()} style={{ cursor: 'pointer', color: 'blue' }}>
+            <span
+              onClick={() => window.location.reload()}
+              style={{ cursor: 'pointer', color: 'blue' }}
+            >
               Refresh
             </span>
           </div>

@@ -10,7 +10,7 @@ const AdminDashboard = ({ history }) => {
     <Layout title={`${user.name && user.name.split(' ')[0]}'s Dashboard`}>
       <>
         <Row>
-          <Col xs={2}>
+          <Col xs={10}>
             {/* <Sidebar /> */}
             <div>
               <Nav className="col-md-12 d-none d-md-block bg-light">
@@ -28,7 +28,7 @@ const AdminDashboard = ({ history }) => {
               </Nav>
             </div>
           </Col>
-          <Col xs={10}>this is a test</Col>
+          <Col xs={2}>this is a test</Col>
         </Row>
       </>
     </Layout>

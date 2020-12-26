@@ -9,23 +9,29 @@ const flightSchema = new mongoose.Schema(
     name: {
       type: String,
       required: [true, 'A flight must have a name'],
-      min: [5, 'Name must be at least 5 characters long' ],
+      min: [5, 'Name must be at least 5 characters long'],
       unique: true,
       trim: true,
       // validate: [validator.isAlpha, 'Tour name must only contain characters'],
     },
-    from: { type: ObjectId, ref: 'Airport', required: [true, 'Flight must have a departure airport'] },
-    to: { type: ObjectId, ref: 'Airport', required: [true, 'Flight must have a arrival airport'] },
+    from: {
+      type: ObjectId,
+      ref: 'Airport',
+      required: [true, 'Flight must have a departure airport'],
+    },
+    to: {
+      type: ObjectId,
+      ref: 'Airport',
+      required: [true, 'Flight must have a arrival airport'],
+    },
     features: [String],
     arrivalDate: {
-      //up
-      type: Date, // format is YYYY-MM-DD
+      type: Date,
       trim: true,
       required: [true, 'Flight requires arrival date'],
     },
     departureDate: {
-      //up
-      type: Date, // format is YYYY-MM-DD
+      type: Date,
       trim: true,
       required: [true, 'Flight requires departure date'],
     },
@@ -97,7 +103,7 @@ flightSchema.pre('remove', async function (next) {
 flightSchema.pre(/^find/, function (next) {
   this.populate('crewStaff', 'name role')
     .populate('from', 'name city')
-    .populate('to', 'name city')
+    .populate('to', 'name city');
   next();
 });
 
