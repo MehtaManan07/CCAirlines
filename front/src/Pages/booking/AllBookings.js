@@ -1,33 +1,15 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { useSelector } from 'react-redux';
 import Layout from '../../Components/core/Layout';
-import Loader from '../../Components/core/Loader';
 import BookingTable from '../../Components/booking/BookingTable';
-import { allBookings } from '../../functions/booking';
 
-const AllBookings = () => {
+const AllBookings = ({ location }) => {
   const user = useSelector((state) => state.user);
-  const [loading, setLoading] = useState(false);
-  const [bookings, setBookings] = useState(null);
-  useEffect(() => {
-    setLoading(true);
-    allBookings().then((res) => {
-      if (res.success) {
-        setBookings(res.data);
-        setLoading(false);
-      }
-      setLoading(false);
-    });
-  }, []);
+  const { bookings } = location.state;
   return (
     <Layout title="All Bookings" className="container">
-      {!loading ? (
-        <BookingTable bookings={bookings} user={user} admin />
-      ) : (
-        <Loader />
-      )}
+      <BookingTable bookings={bookings} user={user} admin />
     </Layout>
   );
 };
-
 export default AllBookings;

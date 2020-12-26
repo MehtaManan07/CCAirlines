@@ -43,7 +43,7 @@ const BookingTable = ({ user, bookings, admin = false }) => {
                 <th scope="col">Passengers</th>
                 <th scope="col">FLight</th>
                 <th scope="col">Checked In</th>
-                <th scope="col">Paid</th>
+                <th scope="col">Date</th>
                 <th scope="col">Final Price</th>
                 <th scope="col">{``}</th>
               </tr>
@@ -87,7 +87,7 @@ const BookingTable = ({ user, bookings, admin = false }) => {
                         </button>
                       </td>
                       <td>{booking.checkedIn ? 'True' : 'False'}</td>
-                      <td>{booking.paid ? 'True' : 'False'}</td>
+                      <td>{booking.createdAt.slice(0,10)}</td>
                       <td>
                         Rs <strong>{Math.round(booking.price)}</strong>
                       </td>
