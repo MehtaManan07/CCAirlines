@@ -1,8 +1,8 @@
 [
     {
       "_id": "5c8a1d5b0190b214360dc057",
-      "name": "Manan Mehta",
-      "email": "mananmehta0507@gmail.com",
+      "name": "SuperUser",
+      "email": "superuser@cc.com",
       "role": "superuser",
       "password": "password",
       "passwordConfirm": "password"
@@ -17,9 +17,9 @@
     },
     {
       "_id": "5c8a1e1a2f8fb814b56fa182",
-      "name": "Other email",
-      "email": "lol@example.com",
-      "role": "user",
+      "name": "SuperUser Other",
+      "email": "superuser2@cc.com",
+      "role": "superuser",
       "password": "password",
       "passwordConfirm": "password"
     },
@@ -75,7 +75,7 @@
       "_id": "5c8a21d02f8fb814b56fa189",
       "name": "Steve T. Scaife",
       "email": "steve@example.com",
-      "role": "lead-staff",
+      "role": "staff",
       "password": "password",
       "passwordConfirm": "password"
     },
@@ -83,7 +83,7 @@
       "_id": "5c8a21f22f8fb814b56fa18a",
       "name": "Aarav Lynn",
       "email": "aarav@example.com",
-      "role": "lead-staff",
+      "role": "staff",
       "password": "password",
       "passwordConfirm": "password"
     },
@@ -91,7 +91,7 @@
       "_id": "5c8a22c62f8fb814b56fa18b",
       "name": "Miyah Myles",
       "email": "miyah@example.com",
-      "role": "lead-staff",
+      "role": "staff",
       "password": "password",
       "passwordConfirm": "password"
     },

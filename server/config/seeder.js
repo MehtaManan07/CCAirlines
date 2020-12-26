@@ -49,12 +49,12 @@ const importData = async () => {
 const deleteData = async () => {
   try {
     // await Airport.deleteMany();
-    // await User.deleteMany();
-    await Seat.deleteMany();
-    await Booking.deleteMany();
-    await Passenger.deleteMany();
-    await Gate.deleteMany()
-    await Flight.deleteMany();
+    await User.deleteMany();
+    // await Seat.deleteMany();
+    // await Booking.deleteMany();
+    // await Passenger.deleteMany();
+    // await Gate.deleteMany()
+    // await Flight.deleteMany();
     console.log('Data deleted'.bgRed);
     process.exit(0);
   } catch (error) {
