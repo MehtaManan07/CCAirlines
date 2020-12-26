@@ -36,7 +36,6 @@ const WebPass = ({ match }) => {
             <h6 className="text-muted">
               {moment
                 .utc(booking.flight.departureDate)
-                .local()
                 .format(' MMM Do YYYY, h:mm A')}
               <strong> | </strong> {booking.user.email}
             </h6>
