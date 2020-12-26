@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const { ObjectId } = mongoose.Schema;
-const sendPdf = require('../utils/Pdf');
+const sendPdf = require('../utils/Pdf')
 const Email = require('../utils/Email');
 
 const passengerSchema = new mongoose.Schema({
