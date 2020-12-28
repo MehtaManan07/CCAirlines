@@ -3,7 +3,6 @@ import { Route, Switch } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.min.css';
 import { useDispatch } from 'react-redux';
-import Axios from 'axios';
 import Home from './Pages/core/Home';
 import Signup from './Pages/core/Signup';
 import Login from './Pages/core/Login';
@@ -21,16 +20,13 @@ import WebSeat from './Pages/webCheck/WebSeat';
 import WebSeatSelect from './Pages/webCheck/WebSeatSelect';
 import WebLuggage from './Pages/webCheck/WebLuggage';
 import WebPass from './Pages/webCheck/WebPass';
+import { getMe } from './functions/auth';
 
 const App = () => {
   const dispatch = useDispatch();
   useEffect(() => {
     if (localStorage.getItem('ccAirlinesAuth')) {
-      Axios.get('/api/v1/users/me')
-        .then((res) => {
-          dispatch({ type: 'SET_USER', payload: res.data.data });
-        })
-        .catch((err) => console.log(err));
+      getMe(dispatch)
     }
   }, []);
   return (

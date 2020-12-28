@@ -34,6 +34,20 @@ exports.login = asyncHandler(async (req, res, next) => {
   sendTokenResponse(200, user, res);
 });
 
+exports.googleLogin = asyncHandler(async (req,res,next) => {
+  const token = req.user.getSignedJwtToken();
+  const cookieOptions = {
+    expires: new Date(Date.now() + 2 * 24 * 60 * 60 * 1000),
+    httpOnly: true,
+  };
+
+  // if (process.env.NODE_ENV === 'production') cookieOptions.secure = true;
+  res.cookie('jwtCC', token, cookieOptions);
+  let randToken = token.toString().slice(4,20)
+  req.user.password = undefined;
+  res.redirect(`http://localhost:3000?google=${randToken}`)
+})
+
 const sendTokenResponse = (exports.sendTokenResponse = (
   statusCode,
   user,

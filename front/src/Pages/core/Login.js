@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import Layout from '../../Components/core/Layout';
 import { googleLogin, login } from '../../functions/auth';
-import queryString from 'query-string'
+import queryString from 'query-string';
 
 const initialState = {
   email: '',
@@ -14,8 +14,8 @@ const initialState = {
 };
 
 const Login = ({ location, history, match }) => {
-  const params = queryString.parse(location.search)
-  console.log(params)
+  const params = queryString.parse(location.search);
+  console.log(params);
   const dispatch = useDispatch();
   const [values, setValues] = useState(initialState);
   const [show, setShow] = useState(false);
@@ -107,9 +107,7 @@ const Login = ({ location, history, match }) => {
               Login
             </button>
             <a
-              //   type="submit"
-              href="http://localhost:5000/api/v1/users/google"
-              onClick={() => console.log('clicked')}
+              href="/api/v1/users/google"
               className="btn btn-outline-danger btn-lg"
             >
               <i className="fab fa-google"></i> Login through google

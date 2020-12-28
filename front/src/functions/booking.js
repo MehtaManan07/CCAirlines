@@ -1,15 +1,11 @@
 import axios from 'axios';
+import { getMe } from './auth';
 
 export const newBooking = (passengers, id, dispatch) => {
   return axios
     .post(`/api/v1/bookings/${id}`, { passengers })
     .then((res) => {
-      axios
-        .get('/api/v1/users/me')
-        .then((ress) => {
-          dispatch({ type: 'SET_USER', payload: ress.data.data });
-        })
-        .catch((err) => console.log(err));
+     getMe(dispatch)
       console.log(res.data);
       return res.data;
     })

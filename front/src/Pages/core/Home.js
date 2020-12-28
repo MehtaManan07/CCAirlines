@@ -1,7 +1,17 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Footer from '../../Components/core/Footer';
 import Navbar from '../../Components/core/Navbar';
-const Home = ({ history }) => {
+import { useDispatch } from 'react-redux'
+import { getMe } from '../../functions/auth';
+const Home = ({ history, location }) => {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    if(location.search.split('=')[0].split('?')[1] === 'google'){
+      localStorage.setItem('ccAirlinesAuth', 'eheufhrigufhgr8gr8');
+      getMe(dispatch)
+      history.push('/')
+    }
+  },[])
   return (
     <div className="bodyy">
       <Navbar />

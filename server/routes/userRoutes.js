@@ -19,10 +19,7 @@ router.get(
   '/google',
   passport.authenticate('google', { scope: ['profile', 'email'] })
 );
-router.get('/google/callback', passport.authenticate('google'), (req, res) => {
-console.log(req.originalUrl + '\n')
-  authController.sendTokenResponse(200, req.user, res);
-});
+router.get('/google/callback', passport.authenticate('google'),authController.googleLogin);
 router.get('/logout', authController.logout);
 
 // // All routes from this middlewares are available to logged in users only

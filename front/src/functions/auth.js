@@ -33,23 +33,33 @@ export const login = (user, dispatch) => {
     });
 };
 
-export const googleLogin = (dispatch) => {
+export const googleLogin = async () => {
+  const user = await axios.get('/api/v1/users/google')
+  return user;
+};
+
+export const getMe = (dispatch) => {
   return axios
-    .get('/api/v1/users/google')
-    .then((a) => console.log(a))
-    .catch((b) => console.log(b.response));
+    .get('/api/v1/users/me')
+    .then((res) => {
+      dispatch({
+        type: 'SET_USER',
+        payload: res.data.data,
+      });
+    })
+    .catch((err) => console.log(err));
 };
 
 export const getStaff = () => {
   return axios
     .get('/api/v1/users?role=staff')
     .then((res) => {
-      console.log(res)
-      return res.data
+      console.log(res);
+      return res.data;
     })
     .catch((b) => {
-      console.log(b)
-      return b.response
+      console.log(b);
+      return b.response;
     });
 };
 

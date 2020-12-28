@@ -3,8 +3,8 @@ import { toast } from 'react-toastify';
 import { cancelBooking } from '../../functions/booking';
 import UserModal from '../core/UserModal';
 import FlightModal from '../flight/FlightModal';
-import Axios from 'axios';
 import { useDispatch } from 'react-redux';
+import { getMe } from '../../functions/auth';
 const BookingTable = ({ user, bookings, admin = false }) => {
   const dispatch = useDispatch();
   const [flight, setFlight] = useState(null);
@@ -16,14 +16,7 @@ const BookingTable = ({ user, bookings, admin = false }) => {
     cancelBooking(booking._id).then((res) => {
       if (res.success) {
         toast.warning('Booking cancelled');
-        Axios.get('/api/v1/users/me')
-          .then((res) => {
-            dispatch({
-              type: 'SET_USER',
-              payload: res.data.data,
-            });
-          })
-          .catch((err) => console.log(err));
+        getMe(dispatch)
       }
       toast.error(res.statusText);
     });
