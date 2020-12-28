@@ -48,7 +48,7 @@ exports.googleLogin = asyncHandler(async (req, res, next) => {
   let reqUrl =
     process.env.NODE_ENV === 'development'
       ? 'http://localhost:3000'
-      : 'https://cc-airlines.herokuapp.com/';
+      : 'https://cc-airlines.herokuapp.com';
   res.redirect(`${reqUrl}?google=${randToken}`);
 });
 
